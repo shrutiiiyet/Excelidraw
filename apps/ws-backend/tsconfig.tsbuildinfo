@@ -1,0 +1,1 @@
+{"root":["./src/config.ts","./src/server.ts","./src/handlers/canvashandler.ts","./src/handlers/roomhandler.ts","./src/handlers/wshandler.ts","./src/services/auth.ts","./src/services/gettoken.ts","./src/utils/logger.ts","./src/utils/roommanager.ts"],"version":"5.8.2"}

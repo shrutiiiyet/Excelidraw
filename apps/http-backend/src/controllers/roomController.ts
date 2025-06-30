@@ -12,7 +12,7 @@ import {
   getRoomWithUsers,
   getRoomWithUsersById,
   removeUserFromRoom,
-} from "../../../../packages/db";
+} from "@repo/db/services";
 
 export const CreateRoom = async (req: AuthRequest, res: Response) => {
   try {
@@ -108,7 +108,7 @@ export const joinRoom = async (req: AuthRequest, res: Response) => {
     }
 
     // Check if the user is already a member
-    const isAlreadyMember = room.users.some((user) => user.id === userId);
+    const isAlreadyMember = room.users.some((user: any) => user.id === userId);
 
     if (!isAlreadyMember) {
       await connectUserWithRoom(roomId, userId);
@@ -157,7 +157,7 @@ export const VerifyUserInRoom = async (req: AuthRequest, res: Response) => {
       return;
     }
 
-    const isUserInRoom = room.users.some((user) => user.id === userId);
+    const isUserInRoom = room.users.some((user: any) => user.id === userId);
     if (!isUserInRoom) {
       res.status(403).json({ message: "Access denied. Not in this room." });
       return;
@@ -257,11 +257,11 @@ export const getRooms = async (req: AuthRequest, res: Response) => {
       return;
     }
 
-    const formattedRooms = user.rooms.map((room) => ({
+    const formattedRooms = user.rooms.map((room: any) => ({
       roomId: room.id,
       slug: room.slug,
       createdAt: room.createdAt, // Sending raw timestamp
-      participants: room.users.map((participant) => participant.name), // Correct relation key
+      participants: room.users.map((participant: any) => participant.name), // Correct relation key
       noOfParticipants: room.users.length, // Correct relation key
     }));
 

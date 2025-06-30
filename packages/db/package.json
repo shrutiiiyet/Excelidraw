@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "exports": {
-    "./services": "./index.ts",
-    "./client": "./src/index.ts"
+    "./services": "./src/index.ts"
   },
   "scripts": {
     "generate": "pnpm prisma generate",

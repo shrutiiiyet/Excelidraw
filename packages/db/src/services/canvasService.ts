@@ -1,4 +1,4 @@
-import type { Shape } from "@repo/common/types";
+//import type { Shape } from "@repo/common/types";
 import { client } from "../index"
 
 export const createCanvas = async ({
@@ -8,7 +8,7 @@ export const createCanvas = async ({
 }: {
   roomId: string;
   userId: string;
-  design: Shape;
+  design: any;
 }) => {
   return await client.canvas.create({
     data: {
@@ -69,7 +69,7 @@ export const deleteCanvasShape = async (shapeId: string) => {
   });
 };
 
-export const updateCanvasShape = async (shapeId: string, updateData: Shape) => {
+export const updateCanvasShape = async (shapeId: string, updateData: any) => {
   return await client.canvas.update({
     where: { id: shapeId },
     data: {

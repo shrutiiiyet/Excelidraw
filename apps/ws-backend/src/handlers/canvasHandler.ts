@@ -3,6 +3,7 @@ import {
   deleteCanvasShape,
   getCanvasShape,
   updateCanvasShape,
+  clearRoomCanvas
   // getRoomIfExists,
 } from "@repo/db/services";
 
@@ -10,7 +11,6 @@ import { logger } from "../utils/logger";
 import { rooms, broadcastToRoom, isUserInRoom } from "../utils/roomManager";
 import { shapeSchema, type CanvasMessage } from "@repo/common/types";
 import { WebSocket } from "ws";
-import { clearRoomCanvas } from "@repo/db/services";
 
 export const handleCanvasEvent = async (
   socket: WebSocket,

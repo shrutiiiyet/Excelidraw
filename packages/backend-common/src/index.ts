@@ -1,3 +1,1 @@
-import { verifyToken } from "./verifyToken";
-
-export { verifyToken };
+export  * from './verifyToken';

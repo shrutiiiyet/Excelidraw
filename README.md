@@ -26,16 +26,16 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 
 ## 📂 Project Structure
 
-excelidraw/
-│
-├── apps/
-│ ├── excelidraw-backend # Fully working backend API
-│ └── excelidraw-frontend # Frontend (in progress, currently ignored)
-│
-├── packages/
-│    ├── backend-common # Common files used amongst backaneds
-│    ├── common # Common Schema
-└─── db #Prisma schema and migrations
+- excelidraw/
+- │
+- ├── apps/
+- │ ├── excelidraw-backend # Fully working backend API
+- │ └── excelidraw-frontend # Frontend (in progress, currently ignored)
+- │
+- ├── packages/
+- │    ├── backend-common # Common files used amongst backaneds
+- │    ├── common # Common Schema
+- └─── db #Prisma schema and migrations
 
 
 ## 📌 To Do

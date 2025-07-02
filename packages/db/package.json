@@ -1,16 +1,19 @@
 {
   "name": "@repo/db",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "exports": {
-    "./services": "./src/index.ts"
+    "./services": "./dist/index.js"
   },
   "scripts": {
     "generate": "pnpm prisma generate",
     "reset": "pnpm prisma migrate reset",
     "migrate": "pnpm prisma migrate dev",
     "db:deploy": "pnpm prisma migrate deploy && pnpm run generate",
-    "studio": "pnpm prisma studio"
+    "studio": "pnpm prisma studio",
+    "build": "tsc -b",
+    "start": "node ./dist/index.js",
+    "dev": "npm run build && npm run start"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

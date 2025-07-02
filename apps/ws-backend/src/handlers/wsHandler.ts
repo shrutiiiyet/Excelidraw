@@ -9,7 +9,6 @@ import {
 import { handleCanvasEvent } from "./canvasHandler";
 import { logger } from "../utils/logger";
 import { PORT } from "../config";
-import { rooms, isUserInRoom } from "../utils/roomManager";
 
 export const setupWebSocketServer = (wss: WebSocketServer) => {
   wss.on("connection", (socket, request) => {

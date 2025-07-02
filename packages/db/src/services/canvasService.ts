@@ -1,4 +1,4 @@
-//import type { Shape } from "@repo/common/types";
+import { type Shape } from "@repo/common/types";
 import { client } from "../index"
 
 export const createCanvas = async ({

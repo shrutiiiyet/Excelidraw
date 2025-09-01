@@ -37,5 +37,7 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+/packages/db/generated
+
 #frontend(temporary)
 excelidraw-frontend

@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 import cors from "cors";
-import { PORT, FRONTEND_URL } from "./config/env";
+import { HTTP_PORT } from "./config/env";
 
 // import routers
 import authRouter from "./routes/authRoutes";
@@ -25,6 +25,6 @@ app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/canvas", canvasRouter);
 
-app.listen(PORT, () => {
-  console.log(`[ server ] is listening on : http://localhost:${PORT}`);
+app.listen(HTTP_PORT, () => {
+  console.log(`[ server ] is listening on : http://localhost:${HTTP_PORT}`);
 });

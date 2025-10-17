@@ -38,6 +38,3 @@ yarn-error.log*
 *.pem
 
 /packages/db/generated
-
-#frontend(temporary)
-excelidraw-frontend

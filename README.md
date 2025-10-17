@@ -43,14 +43,8 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 - [x] Real-time collaboration backend
 - [x] Canvas rendering & drawing tools
 - [x] Frontend layout and routing
+- [ ] Full containerization and orchestration 
 - [ ] Deployment with CI/CD (coming soon)
-
----
-
-## 📣 Stay Tuned
-
-The complete Excelidraw app will be available online soon.  
-Feel free to star 🌟 the repo and follow updates!
 
 ---
 
@@ -60,22 +54,26 @@ With the frontend now complete, contributions are officially open!
 
 We welcome developers to help refine existing features, improve performance, and expand functionality. Whether you’re fixing a bug, optimizing rendering, or enhancing collaboration tools — your contribution matters.
 
-# 🧭 How to Contribute
+### 🧭 How to Contribute
 
 1. Fork the repository
+   
+2. Clone the repository
 
-2. Create a branch for your feature or fix
+```git clone https://github.com/shrutiiiyet/Excelidraw```
 
-`git checkout -b feature/your-feature-name`
+4. Create a branch for your feature or fix
+
+```git checkout -b feature/your-feature-name```
 
 
-3. Commit your changes with clear messages
+4. Commit your changes with clear messages
 
-4. Push to your forked repository
+5. Push to your forked repository
 
-5. Submit a Pull Request describing your improvements
+6. Submit a Pull Request describing your improvements
 
-# 💡 You Can Contribute By:
+## 💡 You Can Contribute By:
 
 - Enhancing performance or state management with Zustand
 
@@ -87,13 +85,16 @@ We welcome developers to help refine existing features, improve performance, and
 
 - Setting up deployment and CI/CD pipelines
 
-## ⚙️ Coming Soon:
+---
 
-- Full containerization and orchestration using Docker
+## 📣 Stay Tuned
 
-- Migration to Bun runtime for improved speed and developer experience
+The complete Excelidraw app will be available online soon.  
+Feel free to star 🌟 the repo and follow updates!
 
-### 📜 License
+---
+
+# 📜 License
 
 This project is licensed under the MIT License.
 Feel free to use, modify, and share responsibly.

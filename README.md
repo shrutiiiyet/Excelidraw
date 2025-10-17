@@ -10,7 +10,7 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 - 🔌 Real-time collaboration powered by **WebSockets**
 - 🗂️ Room-based multi-user drawing experience using **slug-based routing**
 - 🧱 **Backend:** Node.js, Express.js, WebSockets, PostgreSQL, Prisma ORM
-- 🎨 **Frontend (in progress):** Next.js, React, Zustand, Tailwind CSS
+- 🎨 **Frontend:** Next.js, React, Zustand, Tailwind CSS
 - 🛠️ **Database & Schema:** PostgreSQL with Prisma migrations
 - 🚀 **Deployment:** Planned via Docker & CI/CD pipeline
 
@@ -19,7 +19,7 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 ## 🛠️ Project Status
 
 - ✅ **Backend completed** with persistent collaboration and room syncing
-- 🔧 **Frontend under active development**
+- 🔧 **Frontend completed**
 - 🌐 **Live deployment coming soon**
 
 ---
@@ -42,7 +42,7 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 
 - [x] Real-time collaboration backend
 - [x] Canvas rendering & drawing tools
-- [ ] Frontend layout and routing
+- [x] Frontend layout and routing
 - [ ] Deployment with CI/CD (coming soon)
 
 ---
@@ -56,10 +56,44 @@ Feel free to star 🌟 the repo and follow updates!
 
 ## 🤝 Contributing
 
-This project is currently in early development. Once frontend stabilizes, contributions will be welcome!
+With the frontend now complete, contributions are officially open!
 
----
+We welcome developers to help refine existing features, improve performance, and expand functionality. Whether you’re fixing a bug, optimizing rendering, or enhancing collaboration tools — your contribution matters.
 
-## 📜 License
+# 🧭 How to Contribute
 
-MIT License
+1. Fork the repository
+
+2. Create a branch for your feature or fix
+
+`git checkout -b feature/your-feature-name`
+
+
+3. Commit your changes with clear messages
+
+4. Push to your forked repository
+
+5. Submit a Pull Request describing your improvements
+
+# 💡 You Can Contribute By:
+
+- Enhancing performance or state management with Zustand
+
+- Refining the collaborative drawing logic
+
+- Improving UI/UX for the canvas tools
+
+- Writing tests or improving documentation
+
+- Setting up deployment and CI/CD pipelines
+
+## ⚙️ Coming Soon:
+
+- Full containerization and orchestration using Docker
+
+- Migration to Bun runtime for improved speed and developer experience
+
+### 📜 License
+
+This project is licensed under the MIT License.
+Feel free to use, modify, and share responsibly.

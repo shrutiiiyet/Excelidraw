@@ -15,8 +15,8 @@
     "typescript": "5.8.2"
   },
   "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
+  "engines": { 
+    "node": "20.x"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",

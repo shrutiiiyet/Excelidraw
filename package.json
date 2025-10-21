@@ -17,7 +17,7 @@
   "packageManager": "pnpm@9.0.0",
   "engines": { 
     "node": "22.x",
-    "pnpm": ">=9.7.1"
+    "pnpm": ">=6.35.1"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",

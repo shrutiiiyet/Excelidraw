@@ -11,7 +11,7 @@
     "migrate": "pnpm prisma migrate dev",
     "db:deploy": "pnpm prisma migrate deploy && pnpm run generate",
     "studio": "pnpm prisma studio",
-    "build": "tsc -b",
+    "build": "pnpm prisma generate && tsc -b",
     "start": "node ./dist/index.js",
     "dev": "pnpm run build && pnpm run start"
   },

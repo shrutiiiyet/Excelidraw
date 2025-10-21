@@ -14,10 +14,9 @@
     "turbo": "^2.5.3",
     "typescript": "5.8.2"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@6.35.1",
   "engines": { 
-    "node": "22.x",
-    "pnpm": ">=6.35.1"
+    "node": "22.x"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",

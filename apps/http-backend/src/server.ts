@@ -10,11 +10,7 @@ import canvasRouter from "./routes/canvasRoutes";
 const app = express();
 
 app.use(
-  cors({
-    origin: true,
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+  cors(),
 );
 
 app.use(express.json());

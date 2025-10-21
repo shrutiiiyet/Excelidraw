@@ -1,5 +1,4 @@
 import axios from "axios";
-import { HTTP_URL } from "@/config";
 
 export interface AuthError {
   response?: {
@@ -16,7 +15,7 @@ export const signupUser = async (userData: {
   name: string;
 }) => {
   try {
-    const response = await axios.post(`${HTTP_URL}/auth/signup`, userData);
+    const response = await axios.post('http://localhost:3000/auth/signup', userData);
     return response.data;
   } catch (error) {
     const err = error as AuthError;
@@ -33,7 +32,7 @@ export const signinUser = async (userData: {
   password: string;
 }) => {
   try {
-    const response = await axios.post(`${HTTP_URL}/auth/signin`, userData);
+    const response = await axios.post('http://localhost:3000/auth/signin', userData);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
     return response.data;
@@ -51,7 +50,7 @@ export const signinUser = async (userData: {
 
 export const authorize = async (userData: { token: string }) => {
   try {
-    const response = await axios.get(`${HTTP_URL}/auth/me`, {
+    const response = await axios.get("http://localhost:3000/auth/me", {
       headers: {
         Authorization: userData.token,
       },

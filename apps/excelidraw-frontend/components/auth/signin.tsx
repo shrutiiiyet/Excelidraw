@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Input, InputPassword } from "@/components/forms/input";
 import Link from "next/link";
 import { X } from "lucide-react";
-import siteMetadata from "@/lib/siteMetadata";
+import siteMetadata from "../../lib/siteMetaData";
 import Animation from "@/components/animation";
 import { Button } from "@/components/forms/button";
 import { SigninSchema } from "../../../../packages/common";

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { HTTP_URL } from "@/config";
 
 export const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -12,7 +11,7 @@ export const getAuthHeaders = () => {
 export const createRoom = async (name: string) => {
   try {
     const response = await axios.post(
-      `${HTTP_URL}/room/create-room`,
+      'http://localhost:3000/room/create-room',
       { roomName: name },
       { headers: getAuthHeaders() },
     );
@@ -31,7 +30,7 @@ export const createRoom = async (name: string) => {
 export const joinRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      `${HTTP_URL}/room/join-room`,
+      'http://localhost:3000/room/join-room',
       { roomId },
       { headers: getAuthHeaders() },
     );
@@ -48,7 +47,7 @@ export const joinRoom = async (roomId: string) => {
 export const deleteLeaveRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      `${HTTP_URL}/room/leave-or-delete`,
+      'http://localhost:3000/room/leave-or-delete',
       { roomId },
       { headers: getAuthHeaders() },
     );
@@ -69,7 +68,7 @@ export const deleteLeaveRoom = async (roomId: string) => {
 // Get Rooms
 export const getRooms = async () => {
   try {
-    const response = await axios.get(`${HTTP_URL}/room/rooms`, {
+    const response = await axios.get('http://localhost:3000/room/rooms', {
       headers: getAuthHeaders(),
     });
 
@@ -94,7 +93,7 @@ export const getRooms = async () => {
 export const verifyUserInRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      `${HTTP_URL}/room/verify`,
+      'http://localhost:3000/room/verify',
       { roomId },
       { headers: getAuthHeaders() },
     );

@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/services/canvasservice.ts","./src/services/index.ts","./src/services/roomservice.ts","./src/services/userservice.ts"],"version":"5.8.2"}
+{"root":["./src/index.ts","./src/services/canvasService.ts","./src/services/index.ts","./src/services/roomService.ts","./src/services/userService.ts"],"version":"5.8.2"}

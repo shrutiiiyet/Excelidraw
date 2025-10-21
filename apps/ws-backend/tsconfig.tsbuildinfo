@@ -1,1 +1,1 @@
-{"root":["./src/config.ts","./src/server.ts","./src/handlers/canvashandler.ts","./src/handlers/roomhandler.ts","./src/handlers/wshandler.ts","./src/services/auth.ts","./src/services/gettoken.ts","./src/utils/logger.ts","./src/utils/roommanager.ts"],"version":"5.8.2"}
+{"root":["./src/config.ts","./src/server.ts","./src/handlers/canvasHandler.ts","./src/handlers/roomHandler.ts","./src/handlers/wsHandler.ts","./src/services/auth.ts","./src/services/getToken.ts","./src/utils/logger.ts","./src/utils/roomManager.ts"],"version":"5.8.2"}

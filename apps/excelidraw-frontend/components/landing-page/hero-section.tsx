@@ -1,5 +1,5 @@
 import { knewave } from "@/data/fonts";
-import siteMetadata from "@/lib/siteMetadata";
+import siteMetadata from "../../lib/siteMetaData";
 import React from "react";
 import Animation from "@/components/animation";
 

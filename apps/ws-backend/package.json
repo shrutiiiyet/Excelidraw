@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "/dist/server.js",
   "scripts": {
-    "build": "tsc -b && pnpm run -w generate",
+    "build": "tsc -b && pnpm -w run generate",
     "start": "node ./dist/server.js",
     "dev": "pnpm run build && pnpm run start"
   },

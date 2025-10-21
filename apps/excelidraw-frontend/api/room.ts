@@ -11,12 +11,12 @@ export const getAuthHeaders = () => {
 export const createRoom = async (name: string) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/room/create-room',
+      'http://localhost:3001/room/create-room',
       { roomName: name },
       { headers: getAuthHeaders() },
     );
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 3001));
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -30,7 +30,7 @@ export const createRoom = async (name: string) => {
 export const joinRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/room/join-room',
+      'http://localhost:3001/room/join-room',
       { roomId },
       { headers: getAuthHeaders() },
     );
@@ -47,7 +47,7 @@ export const joinRoom = async (roomId: string) => {
 export const deleteLeaveRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/room/leave-or-delete',
+      'http://localhost:3001/room/leave-or-delete',
       { roomId },
       { headers: getAuthHeaders() },
     );
@@ -68,7 +68,7 @@ export const deleteLeaveRoom = async (roomId: string) => {
 // Get Rooms
 export const getRooms = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/room/rooms', {
+    const response = await axios.get('http://localhost:3001/room/rooms', {
       headers: getAuthHeaders(),
     });
 
@@ -93,7 +93,7 @@ export const getRooms = async () => {
 export const verifyUserInRoom = async (roomId: string) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/room/verify',
+      'http://localhost:3001/room/verify',
       { roomId },
       { headers: getAuthHeaders() },
     );

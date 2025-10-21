@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "/dist/server.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && cd ../../packages/db && pnpm run generate && cd ../../apps/ws-backend",
     "start": "node ./dist/server.js",
     "dev": "pnpm run build && pnpm run start"
   },

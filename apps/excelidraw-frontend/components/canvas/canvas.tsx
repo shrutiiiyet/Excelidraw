@@ -1,40 +1,40 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef } from 'react';
-import CanvasFooter from './footer/canvas-footer';
-import CanvasHeader from './header/canvas-header';
-import { CanvasEngine } from '@/canvas_engine/CanvasEngine';
-import Sidebar from './sidebar/sidebar';
-import { useCanvasEngineStore } from '@/stores/canvas.store';
-import { useIsShapeSelectedStore } from '@/stores/shape_selected.store';
-import { useCanvasStyleStore } from '@/stores/canvas_style.store';
-import { useToolStore } from '@/stores/tool.store';
-import { IncomingMessage } from '@repo/common';
-import toast from 'react-hot-toast';
-import { UserPlus, UserMinus } from 'lucide-react';
-import { useSocket } from '@/hooks/useSocket';
+import React, { useEffect, useRef } from "react";
+import CanvasFooter from "./footer/canvas-footer";
+import CanvasHeader from "./header/canvas-header";
+import { CanvasEngine } from "@/canvas_engine/CanvasEngine";
+import Sidebar from "./sidebar/sidebar";
+import { useCanvasEngineStore } from "@/stores/canvas.store";
+import { useIsShapeSelectedStore } from "@/stores/shape_selected.store";
+import { useCanvasStyleStore } from "@/stores/canvas_style.store";
+import { useToolStore } from "@/stores/tool.store";
+import { IncomingMessage } from "@repo/common";
+import toast from "react-hot-toast";
+import { UserPlus, UserMinus } from "lucide-react";
+import { useSocket } from "@/hooks/useSocket";
 
 interface CanvasProps {
   roomId: string;
 }
 
 const cursorStyles = {
-  Eraser: 'none',
-  Freehand: 'crosshair',
-  Text: 'text',
-  Selection: 'pointer',
-  Rectangle: 'crosshair',
-  Diamond: 'crosshair',
-  Ellipse: 'crosshair',
-  Arrow: 'default',
-  Line: 'crosshair',
-  default: 'crosshair',
+  Eraser: "none",
+  Freehand: "crosshair",
+  Text: "text",
+  Selection: "pointer",
+  Rectangle: "crosshair",
+  Diamond: "crosshair",
+  Ellipse: "crosshair",
+  Arrow: "default",
+  Line: "crosshair",
+  default: "crosshair",
 };
 
 const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { canvasEngine, setCanvasEngine } = useCanvasEngineStore();
-  const token = localStorage.getItem('token')?.split(' ')[1];
+  const token = localStorage.getItem("token")?.split(" ")[1];
 
   // Canvas style properties - moved before conditional checks
   const {
@@ -46,71 +46,71 @@ const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
     fillStyle,
   } = useCanvasStyleStore();
 
-  const selectedTool = useToolStore(s => s.selectedTool);
+  const selectedTool = useToolStore((s) => s.selectedTool);
 
   const handleOnMessage = (message: IncomingMessage) => {
     if (!canvasEngine) return;
 
     switch (message.type) {
-      case 'canvas:draw':
+      case "canvas:draw":
         canvasEngine.onDrawMessage(message.data);
         break;
 
-      case 'canvas:update':
+      case "canvas:update":
         canvasEngine.OnUpdateMessage(message.data);
         break;
 
-      case 'canvas:erase':
+      case "canvas:erase":
         canvasEngine.onEraseMessage(message.shapeId);
         break;
 
-      case 'canvas:clear':
+      case "canvas:clear":
         canvasEngine.OnClearMessage();
         break;
 
-      case 'user:connected':
+      case "user:connected":
         toast.success(
           message.userId
             ? `${message.userId} has joined the canvas!`
-            : 'A user has joined the canvas!',
+            : "A user has joined the canvas!",
           {
-            icon: <UserPlus className='text-green-500' />,
+            icon: <UserPlus className="text-green-500" />,
           },
         );
         break;
 
-      case 'user:disconnected':
+      case "user:disconnected":
         toast(
           message.userId
             ? `${message.userId} has left the session.`
-            : 'A user has left the session.',
+            : "A user has left the session.",
           {
-            icon: <UserMinus className='text-red-500' />,
+            icon: <UserMinus className="text-red-500" />,
           },
         );
         break;
 
-      case 'error':
-        console.error('WebSocket error:', message.message);
+      case "error":
+        console.error("WebSocket error:", message.message);
         break;
 
       default:
-        console.warn('Unknown message type:', message);
+        console.warn("Unknown message type:", message);
     }
   };
 
   const { sendMessage } = useSocket({
     roomId,
-    token: token || '',
+    token: token || "",
     onMessage: handleOnMessage,
-    onOpen: () => console.log('Connected'),
-    onClose: () => console.log('Disconnected'),
+    onOpen: () => console.log("Connected"),
+    onClose: () => console.log("Disconnected"),
   });
 
   // Initialize canvas and controllers
   useEffect(() => {
     if (!token) {
-      toast.error('Redirecting to login...');
+      toast.error("Redirecting to login...");
       return;
     }
 
@@ -130,13 +130,13 @@ const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
       }
     };
 
-    canvas.addEventListener('mousedown', handleMouseEvent);
-    canvas.addEventListener('mouseup', handleMouseEvent);
+    canvas.addEventListener("mousedown", handleMouseEvent);
+    canvas.addEventListener("mouseup", handleMouseEvent);
 
     return () => {
       draw.destroy();
-      canvas.removeEventListener('mousedown', handleMouseEvent);
-      canvas.removeEventListener('mouseup', handleMouseEvent);
+      canvas.removeEventListener("mousedown", handleMouseEvent);
+      canvas.removeEventListener("mouseup", handleMouseEvent);
     };
   }, [roomId, sendMessage, setCanvasEngine, token]);
 
@@ -163,8 +163,8 @@ const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Cursor style
@@ -203,7 +203,7 @@ const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
     <>
       <CanvasHeader roomId={roomId} sendMessage={sendMessage} />
       <Sidebar selectedTool={selectedTool} />
-      <canvas ref={canvasRef} className='bg-[#1c1a1a] text-white' />
+      <canvas ref={canvasRef} className="bg-[#1c1a1a] text-white" />
       <CanvasFooter />
     </>
   );

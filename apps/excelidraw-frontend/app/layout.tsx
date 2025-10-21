@@ -1,15 +1,15 @@
-import type { Metadata } from 'next';
-import '@/styles/globals.css';
+import type { Metadata } from "next";
+import "@/styles/globals.css";
 
-import { space_grotesk } from '@/data/fonts';
-import ReactQueryProvider from '@/lib/react-query';
-import { Toaster } from 'react-hot-toast';
-import siteMetadata from '../lib/siteMetaData';
+import { space_grotesk } from "@/data/fonts";
+import ReactQueryProvider from "@/lib/react-query";
+import { Toaster } from "react-hot-toast";
+import siteMetadata from "../lib/siteMetaData";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
   title: {
-    default: 'Excelidraw | Draw Together',
+    default: "Excelidraw | Draw Together",
     template: `%s | ${siteMetadata.title}`,
   },
 
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     description: siteMetadata.description,
     url: siteMetadata.siteUrl,
     siteName: siteMetadata.title,
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
 
   robots: {
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 
   twitter: {
     title: siteMetadata.title,
-    card: 'summary_large_image'
+    card: "summary_large_image",
   },
 };
 
@@ -48,28 +48,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       {/* Favicons */}
       <link
-        rel='icon'
-        type='image/png'
-        href='/favicons/favicon-96x96.png'
-        sizes='96x96'
+        rel="icon"
+        type="image/png"
+        href="/favicons/favicon-96x96.png"
+        sizes="96x96"
       />
-      <link rel='icon' type='image/svg+xml' href='/favicons/favicon.svg' />
-      <link rel='shortcut icon' href='/favicons/favicon.ico' />
+      <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+      <link rel="shortcut icon" href="/favicons/favicon.ico" />
       <link
-        rel='apple-touch-icon'
-        sizes='180x180'
-        href='/favicons/apple-touch-icon.png'
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/favicons/apple-touch-icon.png"
       />
-      <meta name='apple-mobile-web-app-title' content='Excelidraw' />
-      <link rel='manifest' href='/favicons/site.webmanifest' />
+      <meta name="apple-mobile-web-app-title" content="Excelidraw" />
+      <link rel="manifest" href="/favicons/site.webmanifest" />
 
       <body className={`${space_grotesk.className} scroll-smooth antialiased`}>
         <ReactQueryProvider>
           {children}
-          <Toaster position='top-right' reverseOrder={false} />
+          <Toaster position="top-right" reverseOrder={false} />
         </ReactQueryProvider>
       </body>
     </html>

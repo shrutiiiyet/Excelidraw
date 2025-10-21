@@ -3,7 +3,7 @@ import {
   deleteCanvasShape,
   getCanvasShape,
   updateCanvasShape,
-  clearRoomCanvas
+  clearRoomCanvas,
   // getRoomIfExists,
 } from "@repo/db/services";
 
@@ -15,7 +15,7 @@ import { WebSocket } from "ws";
 export const handleCanvasEvent = async (
   socket: WebSocket,
   message: CanvasMessage,
-  userId: string
+  userId: string,
 ) => {
   try {
     const { type, room, data, shapeId } = message;
@@ -38,7 +38,7 @@ export const handleCanvasEvent = async (
         const parsedData = shapeSchema.safeParse(data);
         if (!parsedData.success) {
           logger.warn(
-            `Invalid shape data from user ${userId}: ${JSON.stringify(parsedData.error.format())}`
+            `Invalid shape data from user ${userId}: ${JSON.stringify(parsedData.error.format())}`,
           );
           return;
         }
@@ -53,12 +53,12 @@ export const handleCanvasEvent = async (
           });
 
           logger.info(
-            `User ${userId} drew a ${shapeData.type} in room ${room}`
+            `User ${userId} drew a ${shapeData.type} in room ${room}`,
           );
           broadcastToRoom(
             room,
             { type: "canvas:draw", userId, data: shapeData },
-            socket
+            socket,
           );
         } catch (dbError) {
           logger.error(`Database error while saving shape: ${dbError}`);
@@ -76,7 +76,7 @@ export const handleCanvasEvent = async (
             type: "canvas:clear",
             message: `User ${userId} cleared the canvas`,
           },
-          socket
+          socket,
         );
         break;
 
@@ -84,7 +84,7 @@ export const handleCanvasEvent = async (
         try {
           if (!shapeId) {
             logger.warn(
-              `User ${userId} attempted to erase without providing a shape ID.`
+              `User ${userId} attempted to erase without providing a shape ID.`,
             );
             return;
           }
@@ -105,7 +105,7 @@ export const handleCanvasEvent = async (
               userId,
               shapeId,
             },
-            socket
+            socket,
           );
         } catch (dbError) {
           logger.error(`Database error while erasing shape: ${dbError}`);
@@ -122,7 +122,7 @@ export const handleCanvasEvent = async (
         const parsedData = shapeSchema.safeParse(data);
         if (!parsedData.success) {
           logger.warn(
-            `Invalid update data from user ${userId}: ${JSON.stringify(parsedData.error.format())}`
+            `Invalid update data from user ${userId}: ${JSON.stringify(parsedData.error.format())}`,
           );
           return;
         }
@@ -136,7 +136,7 @@ export const handleCanvasEvent = async (
 
           const updatedShape = await updateCanvasShape(String(data.id), data);
           logger.info(
-            `User ${userId} updated shape ${data.id} in room ${room}`
+            `User ${userId} updated shape ${data.id} in room ${room}`,
           );
 
           broadcastToRoom(
@@ -147,7 +147,7 @@ export const handleCanvasEvent = async (
               shapeId: data.id,
               data,
             },
-            socket
+            socket,
           );
         } catch (dbError) {
           logger.error(`Database error while updating shape: ${dbError}`);

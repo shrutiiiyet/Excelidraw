@@ -3,7 +3,7 @@ import { client } from "../index";
 export const createUser = async (
   email: string,
   hashedPassword: string,
-  name: string
+  name: string,
 ) => {
   return client.user.create({
     data: {

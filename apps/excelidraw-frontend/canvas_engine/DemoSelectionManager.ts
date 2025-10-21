@@ -1,16 +1,16 @@
-import { CanvasMessage } from '@/hooks/useSocket';
-import { Shape } from '@repo/common';
+import { CanvasMessage } from "@/hooks/useSocket";
+import { Shape } from "@repo/common";
 
 // Types of resize handles available for shapes
 type ResizeHandle =
-  | 'top-left'
-  | 'top'
-  | 'top-right'
-  | 'right'
-  | 'bottom-right'
-  | 'bottom'
-  | 'bottom-left'
-  | 'left';
+  | "top-left"
+  | "top"
+  | "top-right"
+  | "right"
+  | "bottom-right"
+  | "bottom"
+  | "bottom-left"
+  | "left";
 
 // Manages shape selection, movement, and resizing on the canvas
 // Single selection only - no multi-selection functionality
@@ -55,10 +55,10 @@ export class SelectionManager {
   //  Handles different shape types (Rectangle, Diamond, Ellipse, Line, Arrow)
 
   private isPointInsideShape(shape: Shape, x: number, y: number): boolean {
-    if (shape.type === 'Freehand' && shape.paths) {
+    if (shape.type === "Freehand" && shape.paths) {
       // For freehand shapes, check if any point is within a threshold
       const threshold = 10; // Adjust this value to change selection sensitivity
-      return shape.paths.some(point => {
+      return shape.paths.some((point) => {
         const distance = Math.sqrt(
           Math.pow(point[0] - x, 2) + Math.pow(point[1] - y, 2),
         );
@@ -86,13 +86,13 @@ export class SelectionManager {
     const midY = (y1 + y2) / 2;
 
     return {
-      'top-left': { x: Math.min(x1, x2), y: Math.min(y1, y2) },
+      "top-left": { x: Math.min(x1, x2), y: Math.min(y1, y2) },
       top: { x: midX, y: Math.min(y1, y2) },
-      'top-right': { x: Math.max(x1, x2), y: Math.min(y1, y2) },
+      "top-right": { x: Math.max(x1, x2), y: Math.min(y1, y2) },
       right: { x: Math.max(x1, x2), y: midY },
-      'bottom-right': { x: Math.max(x1, x2), y: Math.max(y1, y2) },
+      "bottom-right": { x: Math.max(x1, x2), y: Math.max(y1, y2) },
       bottom: { x: midX, y: Math.max(y1, y2) },
-      'bottom-left': { x: Math.min(x1, x2), y: Math.max(y1, y2) },
+      "bottom-left": { x: Math.min(x1, x2), y: Math.max(y1, y2) },
       left: { x: Math.min(x1, x2), y: midY },
     };
   }
@@ -198,7 +198,7 @@ export class SelectionManager {
   // Begin rotation of the selected shape
 
   public beginRotation() {
-    if (!this.selectedShape || this.selectedShape.type === 'Text') return;
+    if (!this.selectedShape || this.selectedShape.type === "Text") return;
 
     this.isRotating = true;
     this.rotationCenter = {
@@ -234,7 +234,7 @@ export class SelectionManager {
     // Send rotation updates
     if (this.selectedShape) {
       this.sendMessage({
-        type: 'canvas:update',
+        type: "canvas:update",
         room: this.roomId,
         data: this.selectedShape,
       });
@@ -247,7 +247,7 @@ export class SelectionManager {
 
   public getShapeAtPoint(x: number, y: number, shapes: Shape[]): Shape | null {
     // Find all shapes containing the point
-    const containingShapes = shapes.filter(shape =>
+    const containingShapes = shapes.filter((shape) =>
       this.isPointInsideShape(shape, x, y),
     );
 
@@ -257,7 +257,7 @@ export class SelectionManager {
     }
 
     // Calculate area for each shape
-    const shapesWithArea = containingShapes.map(shape => {
+    const shapesWithArea = containingShapes.map((shape) => {
       const width = Math.abs(shape.x2 - shape.x1);
       const height = Math.abs(shape.y2 - shape.y1);
       const area = width * height;
@@ -346,7 +346,7 @@ export class SelectionManager {
     this.selectedShape = null;
 
     // Find all shapes that intersect with marquee
-    const intersectingShapes = shapes.filter(shape =>
+    const intersectingShapes = shapes.filter((shape) =>
       this.doesShapeIntersectRect(shape, minX, minY, maxX, maxY),
     );
 
@@ -356,7 +356,7 @@ export class SelectionManager {
     }
 
     // Calculate area for each shape
-    const shapesWithArea = intersectingShapes.map(shape => {
+    const shapesWithArea = intersectingShapes.map((shape) => {
       const width = Math.abs(shape.x2 - shape.x1);
       const height = Math.abs(shape.y2 - shape.y1);
       const area = width * height;
@@ -393,10 +393,10 @@ export class SelectionManager {
     const maxY = Math.max(this.marqueeStartY, this.marqueeEndY);
 
     this.context.save();
-    this.context.strokeStyle = '#625ee0';
+    this.context.strokeStyle = "#625ee0";
     this.context.lineWidth = 1;
     this.context.strokeRect(minX, minY, maxX - minX, maxY - minY);
-    this.context.fillStyle = 'rgba(98, 94, 224, 0.1)';
+    this.context.fillStyle = "rgba(98, 94, 224, 0.1)";
     this.context.fillRect(minX, minY, maxX - minX, maxY - minY);
     this.context.restore();
   }
@@ -435,9 +435,9 @@ export class SelectionManager {
 
   public updateDrag(deltaX: number, deltaY: number) {
     if (this.selectedShape && this.isDragging) {
-      if (this.selectedShape.type === 'Freehand' && this.selectedShape.paths) {
+      if (this.selectedShape.type === "Freehand" && this.selectedShape.paths) {
         // For freehand shapes, update all points in the path
-        this.selectedShape.paths = this.selectedShape.paths.map(point => [
+        this.selectedShape.paths = this.selectedShape.paths.map((point) => [
           point[0] + deltaX,
           point[1] + deltaY,
         ]);
@@ -468,7 +468,7 @@ export class SelectionManager {
     // Only send updates if the shape was actually moved
     if (this.selectedShape && this.dragDistance > 0) {
       this.sendMessage({
-        type: 'canvas:update',
+        type: "canvas:update",
         room: this.roomId,
         data: this.selectedShape,
       });
@@ -481,7 +481,7 @@ export class SelectionManager {
   // Starts resizing a shape from a specific handle
 
   public beginResize(handle: ResizeHandle) {
-    if (this.selectedShape && this.selectedShape.type === 'Text') {
+    if (this.selectedShape && this.selectedShape.type === "Text") {
       // Don't allow resizing for Text shapes
       return;
     }
@@ -497,32 +497,32 @@ export class SelectionManager {
 
     const shape = this.selectedShape;
     switch (this.activeHandle) {
-      case 'top-left':
+      case "top-left":
         shape.x1 += deltaX;
         shape.y1 += deltaY;
         break;
-      case 'top':
+      case "top":
         shape.y1 += deltaY;
         break;
-      case 'top-right':
+      case "top-right":
         shape.x2 += deltaX;
         shape.y1 += deltaY;
         break;
-      case 'right':
+      case "right":
         shape.x2 += deltaX;
         break;
-      case 'bottom-right':
+      case "bottom-right":
         shape.x2 += deltaX;
         shape.y2 += deltaY;
         break;
-      case 'bottom':
+      case "bottom":
         shape.y2 += deltaY;
         break;
-      case 'bottom-left':
+      case "bottom-left":
         shape.x1 += deltaX;
         shape.y2 += deltaY;
         break;
-      case 'left':
+      case "left":
         shape.x1 += deltaX;
         break;
     }
@@ -539,7 +539,7 @@ export class SelectionManager {
     // Send dimension updates for the resized shape
     if (this.selectedShape) {
       this.sendMessage({
-        type: 'canvas:update',
+        type: "canvas:update",
         room: this.roomId,
         data: this.selectedShape,
       });
@@ -557,7 +557,7 @@ export class SelectionManager {
     const centerX = (shape.x1 + shape.x2) / 2;
     const centerY = (shape.y1 + shape.y2) / 2;
     this.context.beginPath();
-    this.context.strokeStyle = '#625ee0';
+    this.context.strokeStyle = "#625ee0";
     this.context.lineWidth = 1;
     this.context.setLineDash([3, 3]);
     this.context.moveTo(centerX, centerY);
@@ -567,9 +567,9 @@ export class SelectionManager {
     // Draw rotation handle
     this.context.beginPath();
     this.context.arc(handle.x, handle.y, 6, 0, Math.PI * 2);
-    this.context.fillStyle = '#625ee0';
+    this.context.fillStyle = "#625ee0";
     this.context.fill();
-    this.context.strokeStyle = '#625ee0';
+    this.context.strokeStyle = "#625ee0";
     this.context.setLineDash([]);
     this.context.lineWidth = 1.5;
     this.context.stroke();
@@ -580,15 +580,15 @@ export class SelectionManager {
   // Enhanced version of drawing selection outline
 
   public drawSelectionOutline(shape: Shape) {
-    if (shape.type === 'Freehand' && shape.paths) {
+    if (shape.type === "Freehand" && shape.paths) {
       // For freehand shapes, draw a bounding box around the path
-      const minX = Math.min(...shape.paths.map(p => p[0]));
-      const maxX = Math.max(...shape.paths.map(p => p[0]));
-      const minY = Math.min(...shape.paths.map(p => p[1]));
-      const maxY = Math.max(...shape.paths.map(p => p[1]));
+      const minX = Math.min(...shape.paths.map((p) => p[0]));
+      const maxX = Math.max(...shape.paths.map((p) => p[0]));
+      const minY = Math.min(...shape.paths.map((p) => p[1]));
+      const maxY = Math.max(...shape.paths.map((p) => p[1]));
 
       this.context.save();
-      this.context.strokeStyle = '#625ee0';
+      this.context.strokeStyle = "#625ee0";
       this.context.lineWidth = 1;
       this.context.setLineDash([]);
 
@@ -612,9 +612,9 @@ export class SelectionManager {
       for (const pos of cornerHandles) {
         this.context.beginPath();
         this.context.rect(pos.x - 4, pos.y - 4, 8, 8);
-        this.context.fillStyle = '#625ee0';
+        this.context.fillStyle = "#625ee0";
         this.context.fill();
-        this.context.strokeStyle = '#625ee0';
+        this.context.strokeStyle = "#625ee0";
         this.context.stroke();
       }
 
@@ -622,7 +622,7 @@ export class SelectionManager {
       return;
     }
 
-    if (shape.type === 'Text') {
+    if (shape.type === "Text") {
       const { x1, y1, x2, y2 } = shape;
       const padding = 8;
 
@@ -630,7 +630,7 @@ export class SelectionManager {
       const height = y2 - y1;
 
       this.context.save();
-      this.context.strokeStyle = '#625ee0';
+      this.context.strokeStyle = "#625ee0";
       this.context.lineWidth = 1;
       this.context.setLineDash([]);
 
@@ -653,9 +653,9 @@ export class SelectionManager {
       for (const pos of cornerHandles) {
         this.context.beginPath();
         this.context.rect(pos.x - 4, pos.y - 4, 8, 8);
-        this.context.fillStyle = '#625ee0';
+        this.context.fillStyle = "#625ee0";
         this.context.fill();
-        this.context.strokeStyle = '#625ee0';
+        this.context.strokeStyle = "#625ee0";
         this.context.stroke();
       }
 
@@ -682,11 +682,11 @@ export class SelectionManager {
     }
 
     // Draw selection rectangle
-    this.context.strokeStyle = '#625ee0';
+    this.context.strokeStyle = "#625ee0";
     this.context.lineWidth = 1;
     this.context.setLineDash([]);
 
-    if (shape.type === 'Line' || shape.type === 'Arrow') {
+    if (shape.type === "Line" || shape.type === "Arrow") {
       // For lines and arrows, draw endpoint handles with improved visibility
       const handles = [
         { x: x1, y: y1 },
@@ -697,15 +697,15 @@ export class SelectionManager {
         // Draw outer circle for better visibility
         this.context.beginPath();
         this.context.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
-        this.context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        this.context.fillStyle = "rgba(255, 255, 255, 0.5)";
         this.context.fill();
 
         // Draw inner circle
         this.context.beginPath();
         this.context.arc(pos.x, pos.y, 6, 0, Math.PI * 2);
-        this.context.fillStyle = '#625ee0';
+        this.context.fillStyle = "#625ee0";
         this.context.fill();
-        this.context.strokeStyle = '#625ee0';
+        this.context.strokeStyle = "#625ee0";
         this.context.lineWidth = 1.5;
         this.context.stroke();
       }
@@ -735,9 +735,9 @@ export class SelectionManager {
         // White fill with blue border for better visibility
         this.context.beginPath();
         this.context.rect(pos.x - 4, pos.y - 4, 8, 8);
-        this.context.fillStyle = '#625ee0';
+        this.context.fillStyle = "#625ee0";
         this.context.fill();
-        this.context.strokeStyle = '#625ee0';
+        this.context.strokeStyle = "#625ee0";
         this.context.stroke();
       }
 
@@ -752,41 +752,41 @@ export class SelectionManager {
   // Shows resize cursors when over handles, move cursor when over shape
 
   public updateCursor(x: number, y: number) {
-    if (!this.selectedShape || this.selectedShape.type === 'Text') {
-      this.canvas.style.cursor = 'default';
+    if (!this.selectedShape || this.selectedShape.type === "Text") {
+      this.canvas.style.cursor = "default";
       return;
     }
 
     // Check if we're near the rotation handle
     if (this.isNearRotationHandle(x, y)) {
-      this.canvas.style.cursor = 'grab';
+      this.canvas.style.cursor = "grab";
       return;
     }
 
     const handle = this.getResizeHandleAtPoint(x, y);
     if (handle) {
       switch (handle) {
-        case 'top-left':
-        case 'bottom-right':
-          this.canvas.style.cursor = 'nwse-resize';
+        case "top-left":
+        case "bottom-right":
+          this.canvas.style.cursor = "nwse-resize";
           break;
-        case 'top-right':
-        case 'bottom-left':
-          this.canvas.style.cursor = 'nesw-resize';
+        case "top-right":
+        case "bottom-left":
+          this.canvas.style.cursor = "nesw-resize";
           break;
-        case 'top':
-        case 'bottom':
-          this.canvas.style.cursor = 'ns-resize';
+        case "top":
+        case "bottom":
+          this.canvas.style.cursor = "ns-resize";
           break;
-        case 'left':
-        case 'right':
-          this.canvas.style.cursor = 'ew-resize';
+        case "left":
+        case "right":
+          this.canvas.style.cursor = "ew-resize";
           break;
       }
     } else if (this.isPointInsideShape(this.selectedShape, x, y)) {
-      this.canvas.style.cursor = 'move';
+      this.canvas.style.cursor = "move";
     } else {
-      this.canvas.style.cursor = 'default';
+      this.canvas.style.cursor = "default";
     }
   }
 

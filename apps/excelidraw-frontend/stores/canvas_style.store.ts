@@ -1,11 +1,10 @@
+import { create } from "zustand";
+import { subscribeWithSelector } from "zustand/middleware";
 
-import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
-
-type StrokeWidth = 'thin' | 'medium' | 'thick';
-type StrokeStyle = 'solid' | 'dashed' | 'dotted';
-type Roughness = 'none' | 'normal' | 'high';
-type FillStyle = 'hachure' | 'solid' | 'cross-hatch';
+type StrokeWidth = "thin" | "medium" | "thick";
+type StrokeStyle = "solid" | "dashed" | "dotted";
+type Roughness = "none" | "normal" | "high";
+type FillStyle = "hachure" | "solid" | "cross-hatch";
 
 interface CanvasStyleStore {
   strokeColor: string;
@@ -23,18 +22,18 @@ interface CanvasStyleStore {
 }
 
 export const useCanvasStyleStore = create<CanvasStyleStore>()(
-  subscribeWithSelector(set => ({
-    strokeColor: 'white',
-    setStrokeColor: color => set({ strokeColor: color }),
-    backgroundColor: 'transparent',
-    setBackgroundColor: color => set({ backgroundColor: color }),
-    strokeWidth: 'thin',
-    setStrokeWidth: w => set({ strokeWidth: w }),
-    strokeStyle: 'solid',
-    setStrokeStyle: style => set({ strokeStyle: style }),
-    roughness: 'none',
-    setRoughness: r => set({ roughness: r }),
-    fillStyle: 'hachure',
-    setFillStyle: style => set({ fillStyle: style }),
+  subscribeWithSelector((set) => ({
+    strokeColor: "white",
+    setStrokeColor: (color) => set({ strokeColor: color }),
+    backgroundColor: "transparent",
+    setBackgroundColor: (color) => set({ backgroundColor: color }),
+    strokeWidth: "thin",
+    setStrokeWidth: (w) => set({ strokeWidth: w }),
+    strokeStyle: "solid",
+    setStrokeStyle: (style) => set({ strokeStyle: style }),
+    roughness: "none",
+    setRoughness: (r) => set({ roughness: r }),
+    fillStyle: "hachure",
+    setFillStyle: (style) => set({ fillStyle: style }),
   })),
 );

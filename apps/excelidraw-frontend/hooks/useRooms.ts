@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRooms, createRoom, deleteLeaveRoom } from '@/api/room';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getRooms, createRoom, deleteLeaveRoom } from "@/api/room";
 
 export interface RoomData {
   roomId: string;
@@ -27,7 +27,7 @@ export const useRooms = () => {
     RoomResponse,
     Error
   >({
-    queryKey: ['rooms'],
+    queryKey: ["rooms"],
     queryFn: getRooms,
     staleTime: Infinity, // Disable automatic refetching once data is fetched
     refetchOnWindowFocus: false, // Prevent refetch on window focus
@@ -39,28 +39,28 @@ export const useRooms = () => {
   const createRoomMutation = useMutation({
     mutationFn: createRoom,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['rooms'] });
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
       refetch(); // Trigger refetch after mutation success
     },
-    onError: err => {
-      console.error('Error creating room:', err);
+    onError: (err) => {
+      console.error("Error creating room:", err);
     },
   });
 
   const deleteLeaveRoomMutation = useMutation({
     mutationFn: deleteLeaveRoom,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['rooms'] });
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
       refetch(); // Trigger refetch after mutation success
     },
-    onError: err => {
-      console.error('Error leaving room:', err);
+    onError: (err) => {
+      console.error("Error leaving room:", err);
     },
   });
 
   return {
     // userId: data?.data.userId ?? '',
-    userName: data?.data.userName ?? '',
+    userName: data?.data.userName ?? "",
     rooms: data?.data.rooms ?? [],
     isLoading: isLoading || isRefetching,
     isError,

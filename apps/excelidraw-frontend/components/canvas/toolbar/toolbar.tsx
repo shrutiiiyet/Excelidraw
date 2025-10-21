@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { LucideIcon } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { LucideIcon } from "lucide-react";
 import {
   MousePointer,
   Square,
@@ -15,26 +15,26 @@ import {
   LockKeyholeOpen,
   LockKeyhole,
   Circle,
-} from 'lucide-react';
+} from "lucide-react";
 
-import ToolbarButton from './toolbar-button';
-import Tooltip from './tooltip';
-import { Tool } from '@/type/tool';
-import { useToolStore } from '@/stores/tool.store';
-import ConfirmationDialog from '@/components/dialogbox/confirmation-dialog';
-import { CanvasMessage } from '@/hooks/useSocket';
-import { useCanvasEngineStore } from '@/stores/canvas.store';
+import ToolbarButton from "./toolbar-button";
+import Tooltip from "./tooltip";
+import { Tool } from "@/type/tool";
+import { useToolStore } from "@/stores/tool.store";
+import ConfirmationDialog from "@/components/dialogbox/confirmation-dialog";
+import { CanvasMessage } from "@/hooks/useSocket";
+import { useCanvasEngineStore } from "@/stores/canvas.store";
 
 const tools: { icon: LucideIcon; tool: Tool; id: number; tooltip: string }[] = [
-  { icon: MousePointer, tool: 'Selection', id: 1, tooltip: 'Selection - 1' },
-  { icon: Square, tool: 'Rectangle', id: 2, tooltip: 'Rectangle - 2' },
-  { icon: Diamond, tool: 'Diamond', id: 3, tooltip: 'Diamond - 3' },
-  { icon: Circle, tool: 'Ellipse', id: 4, tooltip: 'Ellipse - 4' },
-  { icon: MoveRight, tool: 'Arrow', id: 5, tooltip: 'Arrow - 5' },
-  { icon: Minus, tool: 'Line', id: 6, tooltip: 'Line - 6' },
-  { icon: Pencil, tool: 'Freehand', id: 7, tooltip: 'Draw - 7' },
-  { icon: Type, tool: 'Text', id: 8, tooltip: 'Text - 8' },
-  { icon: Eraser, tool: 'Eraser', id: 9, tooltip: 'Eraser - 9' },
+  { icon: MousePointer, tool: "Selection", id: 1, tooltip: "Selection - 1" },
+  { icon: Square, tool: "Rectangle", id: 2, tooltip: "Rectangle - 2" },
+  { icon: Diamond, tool: "Diamond", id: 3, tooltip: "Diamond - 3" },
+  { icon: Circle, tool: "Ellipse", id: 4, tooltip: "Ellipse - 4" },
+  { icon: MoveRight, tool: "Arrow", id: 5, tooltip: "Arrow - 5" },
+  { icon: Minus, tool: "Line", id: 6, tooltip: "Line - 6" },
+  { icon: Pencil, tool: "Freehand", id: 7, tooltip: "Draw - 7" },
+  { icon: Type, tool: "Text", id: 8, tooltip: "Text - 8" },
+  { icon: Eraser, tool: "Eraser", id: 9, tooltip: "Eraser - 9" },
 ];
 
 interface ToolbarProps {
@@ -53,7 +53,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ sendMessage, roomId }) => {
   };
 
   const confirmClear = () => {
-    sendMessage({ type: 'canvas:clear', room: roomId });
+    sendMessage({ type: "canvas:clear", room: roomId });
     canvasEngine?.cleanCanvas();
     setIsDialogOpen(false);
   };
@@ -67,14 +67,14 @@ const Toolbar: React.FC<ToolbarProps> = ({ sendMessage, roomId }) => {
   };
 
   const toggleLock = () => {
-    setIsLocked(prev => !prev);
+    setIsLocked((prev) => !prev);
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const key = event.key;
-      if (key >= '1' && key <= '9') {
-        const tool = tools.find(tool => tool.id === Number(key));
+      if (key >= "1" && key <= "9") {
+        const tool = tools.find((tool) => tool.id === Number(key));
         if (tool && tool.tool !== selectedTool) {
           handleToolSelect(tool.tool);
         }
@@ -84,42 +84,42 @@ const Toolbar: React.FC<ToolbarProps> = ({ sendMessage, roomId }) => {
     const resetTool = () => {
       if (
         !isLocked &&
-        selectedTool !== 'Freehand' &&
-        selectedTool !== 'Eraser' &&
-        selectedTool !== 'Selection'
+        selectedTool !== "Freehand" &&
+        selectedTool !== "Eraser" &&
+        selectedTool !== "Selection"
       ) {
-        setSelectedTool('Selection');
+        setSelectedTool("Selection");
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('mouseup', resetTool);
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("mouseup", resetTool);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('mouseup', resetTool);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("mouseup", resetTool);
     };
   }, [isLocked, selectedTool]);
 
   return (
-    <nav className='bg-background flex items-center justify-between gap-2 rounded-lg px-4 py-1 text-white shadow-md'>
+    <nav className="bg-background flex items-center justify-between gap-2 rounded-lg px-4 py-1 text-white shadow-md">
       {/* Lock Toggle Button */}
-      <div className='group relative'>
+      <div className="group relative">
         <button
           onClick={toggleLock}
           className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded ${
-            isLocked ? 'bg-tool_select' : 'hover:bg-light_background'
+            isLocked ? "bg-tool_select" : "hover:bg-light_background"
           }`}
-          aria-label='Toggle lock'
+          aria-label="Toggle lock"
         >
           {isLocked ? <LockKeyhole size={18} /> : <LockKeyholeOpen size={18} />}
-          <Tooltip tooltip={'Keep selected tool active after drawing'} />
+          <Tooltip tooltip={"Keep selected tool active after drawing"} />
         </button>
       </div>
 
       {/* Toolbar Buttons */}
-      <div className='flex gap-2 border-x border-gray-700 px-4'>
-        {tools.map(tool => (
+      <div className="flex gap-2 border-x border-gray-700 px-4">
+        {tools.map((tool) => (
           <ToolbarButton
             key={tool.id}
             id={tool.id}
@@ -132,23 +132,23 @@ const Toolbar: React.FC<ToolbarProps> = ({ sendMessage, roomId }) => {
       </div>
 
       {/* Clear Button */}
-      <div className='group relative'>
+      <div className="group relative">
         <button
-          className='hover:bg-light_background flex h-9 w-9 cursor-pointer items-center justify-center rounded p-2'
-          aria-label='Clear canvas'
+          className="hover:bg-light_background flex h-9 w-9 cursor-pointer items-center justify-center rounded p-2"
+          aria-label="Clear canvas"
           onClick={handleClick}
         >
-          <Trash size={18} className='text-red-500' />
+          <Trash size={18} className="text-red-500" />
         </button>
-        <Tooltip tooltip={'Clear Canvas'} />
+        <Tooltip tooltip={"Clear Canvas"} />
       </div>
 
       <ConfirmationDialog
         isOpen={isDialogOpen}
-        title='Clear Canvas'
-        message='Are you sure you want to clear the canvas? This action cannot be undone.'
-        confirmText='Clear'
-        cancelText='Cancel'
+        title="Clear Canvas"
+        message="Are you sure you want to clear the canvas? This action cannot be undone."
+        confirmText="Clear"
+        cancelText="Cancel"
         onConfirm={confirmClear}
         onCancel={cancelClear}
       />

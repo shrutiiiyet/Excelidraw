@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Share2, Copy, Check, Loader2, ChevronDown } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { Share2, Copy, Check, Loader2, ChevronDown } from "lucide-react";
 // import { toast } from 'react-hot-toast';
 
 interface ShareButtonProps {
@@ -13,11 +13,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({ roomId }) => {
   const [copied, setCopied] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const [dashboardUrl, setDashboardUrl] = useState('');
+  const [dashboardUrl, setDashboardUrl] = useState("");
 
   // Set dashboard URL on client side
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       setDashboardUrl(`${window.location.origin}/dashboard`);
     }
   }, []);
@@ -39,11 +39,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({ roomId }) => {
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
@@ -51,12 +51,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({ roomId }) => {
     setIsProcessing(true);
     try {
       await navigator.share({
-        title: 'Join My CoSketch Room!',
+        title: "Join My CoSketch Room!",
         text: shareMessage,
         url: dashboardUrl,
       });
-    }
-    finally {
+    } finally {
       setIsProcessing(false);
       setIsOpen(false);
     }
@@ -68,60 +67,59 @@ const ShareButton: React.FC<ShareButtonProps> = ({ roomId }) => {
       await navigator.clipboard.writeText(shareMessage);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    }
-      finally {
+    } finally {
       setIsProcessing(false);
       setIsOpen(false);
     }
   };
 
   return (
-    <div className='relative hidden lg:block' ref={menuRef}>
+    <div className="relative hidden lg:block" ref={menuRef}>
       {/* Main Button */}
       <button
-        onClick={() => setIsOpen(prev => !prev)}
+        onClick={() => setIsOpen((prev) => !prev)}
         disabled={isProcessing}
-        className='bg-primary flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base text-white transition disabled:opacity-50'
+        className="bg-primary flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-base text-white transition disabled:opacity-50"
       >
         {isProcessing ? (
-          <Loader2 className='h-5 w-5 animate-spin' />
+          <Loader2 className="h-5 w-5 animate-spin" />
         ) : copied ? (
-          <Check className='h-5 w-5 text-green-400' />
+          <Check className="h-5 w-5 text-green-400" />
         ) : (
-          <Share2 className='h-5 w-5' />
+          <Share2 className="h-5 w-5" />
         )}
-        {isProcessing ? 'Processing...' : copied ? 'Copied!' : 'Share'}
-        <ChevronDown className='h-4 w-4' />
+        {isProcessing ? "Processing..." : copied ? "Copied!" : "Share"}
+        <ChevronDown className="h-4 w-4" />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className='bg-background absolute right-0 mt-2 w-44 rounded-lg p-2 shadow-lg'>
+        <div className="bg-background absolute right-0 mt-2 w-44 rounded-lg p-2 shadow-lg">
           <button
             onClick={handleShare}
             disabled={isProcessing}
-            className='hover:bg-light_background flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-sm text-white disabled:opacity-50'
+            className="hover:bg-light_background flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-sm text-white disabled:opacity-50"
           >
             {isProcessing ? (
-              <Loader2 className='h-4 w-4 animate-spin' />
+              <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              <Share2 className='h-4 w-4' />
+              <Share2 className="h-4 w-4" />
             )}
-            {isProcessing ? 'Sharing...' : 'Share'}
+            {isProcessing ? "Sharing..." : "Share"}
           </button>
           <button
             onClick={handleCopy}
             disabled={isProcessing}
-            className='hover:bg-light_background flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-sm text-white disabled:opacity-50'
+            className="hover:bg-light_background flex w-full cursor-pointer items-center gap-2 px-3 py-2 text-sm text-white disabled:opacity-50"
           >
             {isProcessing ? (
-              <Loader2 className='h-4 w-4 animate-spin' />
+              <Loader2 className="h-4 w-4 animate-spin" />
             ) : copied ? (
-              <Check className='h-4 w-4 text-green-500' />
+              <Check className="h-4 w-4 text-green-500" />
             ) : (
-              <Copy className='h-4 w-4' />
+              <Copy className="h-4 w-4" />
             )}
-            {isProcessing ? 'Copying...' : copied ? 'Copied!' : 'Copy Link'}
+            {isProcessing ? "Copying..." : copied ? "Copied!" : "Copy Link"}
           </button>
         </div>
       )}

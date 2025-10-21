@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { Users, ChevronDown } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { Users, ChevronDown } from "lucide-react";
 
 interface RoomParticipantProps {
   participants: string[];
@@ -25,38 +25,38 @@ export default function RoomParticipants({
         setOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
-    <div className='relative' ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setOpen(prev => !prev)}
-        className='flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 whitespace-nowrap hover:bg-gray-100'
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 whitespace-nowrap hover:bg-gray-100"
       >
-        <Users className='h-4 w-4 text-gray-400' />
+        <Users className="h-4 w-4 text-gray-400" />
         {noOfParticipants}
         <ChevronDown
-          className={`h-4 w-4 text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-4 w-4 text-gray-500 transition-transform ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
-        <div className='absolute left-0 z-10 mt-2 w-48 rounded-md border border-gray-300 bg-white shadow-lg'>
+        <div className="absolute left-0 z-10 mt-2 w-48 rounded-md border border-gray-300 bg-white shadow-lg">
           {participants.length > 0 ? (
             participants.map((participant, index) => (
               <div
                 key={index}
-                className='mx-2 my-1 border-b border-gray-200 px-3 py-2'
+                className="mx-2 my-1 border-b border-gray-200 px-3 py-2"
               >
-                {participant === username ? 'you' : participant}
+                {participant === username ? "you" : participant}
               </div>
             ))
           ) : (
-            <div className='px-3 py-2 text-gray-500'>No Participants</div>
+            <div className="px-3 py-2 text-gray-500">No Participants</div>
           )}
         </div>
       )}

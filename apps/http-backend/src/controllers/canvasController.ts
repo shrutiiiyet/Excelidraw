@@ -1,4 +1,3 @@
-
 import type { Response } from "express";
 import { HttpStatus } from "../utils/httpStatus";
 import type { AuthRequest } from "../utils/request-type";

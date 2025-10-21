@@ -1,6 +1,6 @@
-import React from 'react';
-import Actions from './action/actions';
-import Rooms from './room/rooms';
+import React from "react";
+import Actions from "./action/actions";
+import Rooms from "./room/rooms";
 
 export interface RoomResponse {
   roomId: string;
@@ -12,7 +12,7 @@ export interface RoomResponse {
 
 const DashboardBody = () => {
   return (
-    <section className='mx-auto max-w-7xl px-6'>
+    <section className="mx-auto max-w-7xl px-6">
       <Actions />
       <Rooms />
     </section>

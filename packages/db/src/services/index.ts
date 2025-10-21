@@ -1,8 +1,8 @@
-
-import { getUserByEmail, 
-  createUser, 
-  getUserById
- } from "../services/userService";
+import {
+  getUserByEmail,
+  createUser,
+  getUserById,
+} from "../services/userService";
 
 export { getUserByEmail, createUser, getUserById };
 
@@ -16,7 +16,7 @@ import {
   getRoomWithUsers,
   connectUserWithRoom,
   getRoomIfExists,
-  getRoomByRoomId
+  getRoomByRoomId,
 } from "../services/roomService";
 
 export {
@@ -39,7 +39,7 @@ import {
   getCanvasShape,
   deleteCanvasShape,
   updateCanvasShape,
-  clearRoomCanvas
+  clearRoomCanvas,
 } from "../services/canvasService";
 
 export {
@@ -49,5 +49,5 @@ export {
   getCanvasShape,
   deleteCanvasShape,
   updateCanvasShape,
-  clearRoomCanvas
+  clearRoomCanvas,
 };

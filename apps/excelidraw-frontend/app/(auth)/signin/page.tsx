@@ -1,11 +1,11 @@
-import Signin from '@/components/auth/signin';
-import getPageMetadata from '@/lib/getPageMetadata';
-import React from 'react';
+import Signin from "@/components/auth/signin";
+import getPageMetadata from "@/lib/getPageMetadata";
+import React from "react";
 
 export const metadata = getPageMetadata({
-  title: 'Sign In',
+  title: "Sign In",
   description:
-    'Sign in to your newer Excelidraw account and continue your collaborative work.',
+    "Sign in to your newer Excelidraw account and continue your collaborative work.",
 });
 
 const SignInPage = () => {

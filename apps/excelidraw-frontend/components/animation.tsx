@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { RoughNotation } from 'react-rough-notation';
+import React, { useState, useEffect, useRef } from "react";
+import { RoughNotation } from "react-rough-notation";
 
 interface AnimationProps {
   type?:
-    | 'highlight'
-    | 'underline'
-    | 'box'
-    | 'circle'
-    | 'strike-through'
-    | 'crossed-off'
-    | 'bracket';
+    | "highlight"
+    | "underline"
+    | "box"
+    | "circle"
+    | "strike-through"
+    | "crossed-off"
+    | "bracket";
   color?: string;
   children: React.ReactNode;
-  brackets?: 'left' | 'right';
+  brackets?: "left" | "right";
 }
 
 const Animation = ({
-  type = 'highlight',
-  color = '#A7EFC2',
+  type = "highlight",
+  color = "#A7EFC2",
   children,
 }: AnimationProps) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -54,7 +54,7 @@ const Animation = ({
         color={color}
         strokeWidth={2}
         animationDuration={800}
-        brackets={['left', 'right']}
+        brackets={["left", "right"]}
       >
         {children}
       </RoughNotation>

@@ -1,4 +1,4 @@
-import { Shape } from '@repo/common';
+import { Shape } from "@repo/common";
 
 export class Eraser {
   private context: CanvasRenderingContext2D;
@@ -40,7 +40,7 @@ export class Eraser {
 
     // Create a new array without the erased shape
     const remainingShapes = this.shapes.filter(
-      shape => shape.id !== closestShape.id,
+      (shape) => shape.id !== closestShape.id,
     );
 
     return remainingShapes;
@@ -75,31 +75,31 @@ export class Eraser {
 
     // Configure the context for stroke detection
     this.context.lineWidth = Math.max(this.eraserSize, 10); // Minimum stroke width for easier erasing
-    this.context.lineCap = 'round';
-    this.context.lineJoin = 'round';
+    this.context.lineCap = "round";
+    this.context.lineJoin = "round";
     this.context.beginPath();
 
     // Draw the appropriate path based on shape type
     switch (shape.type) {
-      case 'Rectangle':
+      case "Rectangle":
         this.drawRectanglePath(shape);
         break;
-      case 'Diamond':
+      case "Diamond":
         this.drawDiamondPath(shape);
         break;
-      case 'Ellipse':
+      case "Ellipse":
         this.drawEllipsePath(shape);
         break;
-      case 'Line':
+      case "Line":
         this.drawLinePath(shape);
         break;
-      case 'Arrow':
+      case "Arrow":
         this.drawArrowPath(shape);
         break;
-      case 'Freehand':
+      case "Freehand":
         if (shape.paths) {
           // For freehand shapes, check if any point is within eraser radius
-          const isOnStroke = shape.paths.some(point => {
+          const isOnStroke = shape.paths.some((point) => {
             const distance = Math.sqrt(
               Math.pow(point[0] - pointX, 2) + Math.pow(point[1] - pointY, 2),
             );
@@ -142,7 +142,7 @@ export class Eraser {
     let distance = Infinity;
     if (isOnStroke) {
       // For lines and arrows, use perpendicular distance to the line
-      if (shape.type === 'Line' || shape.type === 'Arrow') {
+      if (shape.type === "Line" || shape.type === "Arrow") {
         distance = this.getDistanceToLine(
           pointX,
           pointY,

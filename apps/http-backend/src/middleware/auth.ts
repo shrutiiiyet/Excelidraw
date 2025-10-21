@@ -1,4 +1,3 @@
-
 import { type Response, type NextFunction } from "express";
 import { verifyToken } from "@repo/backend-common/config";
 import type { AuthRequest } from "../utils/request-type";
@@ -11,8 +10,8 @@ export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
 
     if (!token) {
       res.status(HttpStatus.UNAUTHORIZED).json({
-         message: "Access Denied: No token provided" 
-        });
+        message: "Access Denied: No token provided",
+      });
       return;
     }
 
@@ -27,7 +26,9 @@ export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
 
     next();
   } catch (error) {
-    res.status(HttpStatus.UNAUTHORIZED).json({ message: "Authentication Failed" });
+    res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ message: "Authentication Failed" });
     return;
   }
 };

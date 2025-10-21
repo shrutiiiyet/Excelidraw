@@ -1,17 +1,17 @@
-import siteMetadata from '../lib/siteMetaData';
-import { MetadataRoute } from 'next';
+import siteMetadata from "../lib/siteMetaData";
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/admin/', '/private/'],
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/admin/", "/private/"],
       },
       {
-        userAgent: 'Googlebot',
-        allow: '/_next/image',
+        userAgent: "Googlebot",
+        allow: "/_next/image",
       },
     ],
     sitemap: `${siteMetadata.siteUrl}/sitemap.xml`,

@@ -33,17 +33,16 @@ Excelidraw is a real-time collaborative canvas application inspired by Excalidra
 - │ └── excelidraw-frontend # Frontend (in progress, currently ignored)
 - │
 - ├── packages/
-- │    ├── backend-common # Common files used amongst backaneds
-- │    ├── common # Common Schema
+- │ ├── backend-common # Common files used amongst backaneds
+- │ ├── common # Common Schema
 - └─── db #Prisma schema and migrations
-
 
 ## 📌 To Do
 
 - [x] Real-time collaboration backend
 - [x] Canvas rendering & drawing tools
 - [x] Frontend layout and routing
-- [ ] Full containerization and orchestration 
+- [ ] Full containerization and orchestration
 - [ ] Deployment with CI/CD (coming soon)
 
 ---
@@ -57,15 +56,13 @@ We welcome developers to help refine existing features, improve performance, and
 ### 🧭 How to Contribute
 
 1. Fork the repository
-   
 2. Clone the repository
 
-```git clone https://github.com/shrutiiiyet/Excelidraw```
+`git clone https://github.com/shrutiiiyet/Excelidraw`
 
 4. Create a branch for your feature or fix
 
-```git checkout -b feature/your-feature-name```
-
+`git checkout -b feature/your-feature-name`
 
 4. Commit your changes with clear messages
 

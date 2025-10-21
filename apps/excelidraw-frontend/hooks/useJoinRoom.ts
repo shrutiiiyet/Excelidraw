@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-hot-toast';
-import { joinRoom } from '@/api/room';
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { joinRoom } from "@/api/room";
 
 const useJoinRoomMutation = () => {
   const router = useRouter();
@@ -13,18 +13,18 @@ const useJoinRoomMutation = () => {
       const response = await joinRoom(roomId);
       return response;
     },
-    onSuccess: data => {
+    onSuccess: (data) => {
       const roomId = data?.roomId;
 
-      if (typeof roomId === 'string' && roomId.trim() !== '') {
+      if (typeof roomId === "string" && roomId.trim() !== "") {
         router.push(`/canvas/${roomId}`);
       } else {
-        console.error('Room ID is missing or invalid', data);
+        console.error("Room ID is missing or invalid", data);
       }
     },
-    onError: err => {
-      console.error('Error joining room:', err);
-      toast.error(err.message || 'Failed to join the room. Please try again.');
+    onError: (err) => {
+      console.error("Error joining room:", err);
+      toast.error(err.message || "Failed to join the room. Please try again.");
     },
   });
 };

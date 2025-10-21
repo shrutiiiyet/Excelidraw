@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import { HttpStatus } from "../utils/httpStatus";
-import { createUser, getUserById, getUserByEmail } from "@repo/db/services"
+import { createUser, getUserById, getUserByEmail } from "@repo/db/services";
 import { CreateUserSchema, SigninSchema } from "@repo/common/types";
 import { generateToken } from "../utils/jwt";
 import type { AuthRequest } from "../utils/request-type";

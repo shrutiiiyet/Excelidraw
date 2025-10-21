@@ -1,20 +1,20 @@
-import { IncomingMessage, Shape } from '@repo/types';
-import { useEffect, useRef, useCallback } from 'react';
-import { WS_URL } from '@/config';
+import { IncomingMessage, Shape } from "@repo/types";
+import { useEffect, useRef, useCallback } from "react";
+import { WS_URL } from "@/config";
 
 export type CanvasMessage =
-  | { type: 'room:join' | 'room:leave'; room: string }
+  | { type: "room:join" | "room:leave"; room: string }
   | {
-      type: 'canvas:draw' | 'canvas:update';
+      type: "canvas:draw" | "canvas:update";
       room: string;
       data: Shape;
     }
   | {
-      type: 'canvas:erase';
+      type: "canvas:erase";
       room: string;
       shapeId: string;
     }
-  | { type: 'canvas:clear'; room: string };
+  | { type: "canvas:clear"; room: string };
 
 export type EventCallback = (message: IncomingMessage) => void;
 
@@ -60,7 +60,7 @@ export const useSocket = ({
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(message));
     } else {
-      console.warn('Tried to send message when socket is not open:', message);
+      console.warn("Tried to send message when socket is not open:", message);
     }
   }, []);
 
@@ -80,7 +80,7 @@ export const useSocket = ({
       globalSocket.readyState === WebSocket.OPEN &&
       activeRoomId === roomId
     ) {
-      console.log('Reusing existing WebSocket connection');
+      console.log("Reusing existing WebSocket connection");
       socketRef.current = globalSocket;
       activeConnections++;
 
@@ -100,7 +100,7 @@ export const useSocket = ({
         globalSocket.readyState === WebSocket.CONNECTING)
     ) {
       if (activeRoomId !== roomId) {
-        console.log('Closing existing socket for different room');
+        console.log("Closing existing socket for different room");
         globalSocket.close();
         globalSocket = null;
         activeRoomId = null;
@@ -119,30 +119,30 @@ export const useSocket = ({
       activeConnections++;
 
       socket.onopen = () => {
-        console.log('WebSocket connected successfully');
+        console.log("WebSocket connected successfully");
         connectingRef.current = false;
         retryCount.current = 0;
         activeRoomId = roomId;
 
-        socket.send(JSON.stringify({ type: 'room:join', room: roomId }));
+        socket.send(JSON.stringify({ type: "room:join", room: roomId }));
         if (componentMountedRef.current) {
           onOpenRef.current?.();
         }
       };
 
-      socket.onmessage = event => {
+      socket.onmessage = (event) => {
         try {
           const message: IncomingMessage = JSON.parse(event.data);
           if (componentMountedRef.current && onMessageRef.current) {
             onMessageRef.current(message);
           }
         } catch (err) {
-          console.error('Failed to parse incoming WebSocket message:', err);
+          console.error("Failed to parse incoming WebSocket message:", err);
         }
       };
 
-      socket.onclose = event => {
-        console.log('WebSocket disconnected', event.code, event.reason);
+      socket.onclose = (event) => {
+        console.log("WebSocket disconnected", event.code, event.reason);
         connectingRef.current = false;
 
         if (componentMountedRef.current) {
@@ -168,17 +168,17 @@ export const useSocket = ({
         }
       };
 
-      socket.onerror = err => {
+      socket.onerror = (err) => {
         console.error(
-          'WebSocket error:',
+          "WebSocket error:",
           err,
-          'ReadyState:',
+          "ReadyState:",
           socket.readyState,
         );
         connectingRef.current = false;
       };
     } catch (err) {
-      console.error('Failed to create WebSocket:', err);
+      console.error("Failed to create WebSocket:", err);
       connectingRef.current = false;
       retryCount.current++;
     }
@@ -189,7 +189,7 @@ export const useSocket = ({
     componentMountedRef.current = true;
 
     if (!token) {
-      console.error('No token provided. Skipping WebSocket connection.');
+      console.error("No token provided. Skipping WebSocket connection.");
       return;
     }
 
@@ -205,7 +205,7 @@ export const useSocket = ({
 
         if (globalSocket && globalSocket.readyState === WebSocket.OPEN) {
           globalSocket.send(
-            JSON.stringify({ type: 'room:leave', room: roomId }),
+            JSON.stringify({ type: "room:leave", room: roomId }),
           );
           globalSocket.close();
           globalSocket = null;

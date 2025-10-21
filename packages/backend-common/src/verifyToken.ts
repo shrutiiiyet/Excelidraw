@@ -12,7 +12,7 @@ interface TokenPayload {
 
 export const verifyToken = (
   token: string,
-  JWT_SECRET: string
+  JWT_SECRET: string,
 ): TokenPayload | null => {
   try {
     return jwt.verify(token, JWT_SECRET) as TokenPayload;

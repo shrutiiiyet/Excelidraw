@@ -1,6 +1,5 @@
-
-import { Metadata } from 'next';
-import siteMetadata from '../lib/siteMetaData';
+import { Metadata } from "next";
+import siteMetadata from "../lib/siteMetaData";
 
 interface GetPageMetadataProps {
   title: string;
@@ -13,13 +12,13 @@ const getPageMetadata = ({
   title,
   description,
   image,
-  path = '',
+  path = "",
 }: GetPageMetadataProps): Metadata => {
   const metaTitle = `${title} | ${siteMetadata.title}`;
   const metaDescription = description ?? siteMetadata.description;
   //const metaImage = image ? image : siteMetadata.socialBanner;
   const sitePath = path
-    ? `${siteMetadata.siteUrl.replace(/\/$/, '')}/${path.replace(/^\//, '')}`
+    ? `${siteMetadata.siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`
     : siteMetadata.siteUrl;
 
   return {
@@ -32,16 +31,16 @@ const getPageMetadata = ({
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      url: './',
+      url: "./",
       siteName: siteMetadata.title,
       //images: [metaImage],
-      locale: 'en_US',
-      type: 'website',
+      locale: "en_US",
+      type: "website",
     },
 
     twitter: {
       title: metaTitle,
-      card: 'summary_large_image',
+      card: "summary_large_image",
       //images: [metaImage],
     },
   };

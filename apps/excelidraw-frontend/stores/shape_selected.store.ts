@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 // const [isShapeSelected, setIsShapeSelected] = useState(false);
 
@@ -7,7 +7,7 @@ interface IsShapeSelectedState {
   setIsShapeSelected: (isSelected: boolean) => void;
 }
 
-export const useIsShapeSelectedStore = create<IsShapeSelectedState>(set => ({
+export const useIsShapeSelectedStore = create<IsShapeSelectedState>((set) => ({
   isShapeSelected: false,
   setIsShapeSelected: (isSelected: boolean) =>
     set({ isShapeSelected: isSelected }),

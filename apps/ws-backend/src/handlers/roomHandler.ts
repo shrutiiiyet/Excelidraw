@@ -12,7 +12,7 @@ import {
 export const handleRoomEvent = async (
   socket: WebSocket,
   message: { type: string; room: string },
-  userId: string
+  userId: string,
 ) => {
   const { type, room } = message;
 
@@ -27,7 +27,7 @@ export const handleRoomEvent = async (
             type: "user:connected",
             message: `User ${userId} joined`,
           },
-          socket
+          socket,
         );
       }
       break;
@@ -53,7 +53,7 @@ export const handleUserDisconnect = (socket: WebSocket, userId: string) => {
 // Full Leave (Remove User + Canvas)
 export const handleUserLeaveCompletely = async (
   socket: WebSocket,
-  userId: string
+  userId: string,
 ) => {
   for (const room in rooms) {
     if (rooms[room] && isUserInRoom(socket, room)) {
@@ -67,11 +67,11 @@ export const removeUserFromRoom = async (
   socket: WebSocket,
   room: string,
   userId: string,
-  removeCanvas: boolean
+  removeCanvas: boolean,
 ) => {
   if (!rooms[room] || !isUserInRoom(socket, room)) {
     logger.warn(
-      `User ${userId} tried to leave room ${room}, but either room does not exist or user not in room.`
+      `User ${userId} tried to leave room ${room}, but either room does not exist or user not in room.`,
     );
     return;
   }
@@ -81,7 +81,7 @@ export const removeUserFromRoom = async (
 
     const roomSize = rooms[room]?.size || 0;
     logger.info(
-      `User ${userId} left room ${room}. Remaining users: ${roomSize}`
+      `User ${userId} left room ${room}. Remaining users: ${roomSize}`,
     );
 
     if (removeCanvas) {
@@ -119,7 +119,7 @@ const cleanupRoom = (room: string, socket: WebSocket) => {
         type: "user:disconnected",
         message: `A user left the room`,
       },
-      socket
+      socket,
     );
   }
 };

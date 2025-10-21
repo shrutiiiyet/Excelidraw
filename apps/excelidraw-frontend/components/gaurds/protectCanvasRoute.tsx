@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { verifyUserInRoom } from '../../api/room';
-import Spinner from '../../components/spinner';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+import { verifyUserInRoom } from "../../api/room";
+import Spinner from "../../components/spinner";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface ProtectCanvasRouteProps {
   children: React.ReactNode;
@@ -18,21 +18,21 @@ const ProtectCanvasRoute = ({ children, roomId }: ProtectCanvasRouteProps) => {
 
   const verifyUserInRoomMutation = useMutation({
     mutationFn: verifyUserInRoom,
-    onSuccess: data => {
-      toast.success(data.message || 'Authentication successful');
+    onSuccess: (data) => {
+      toast.success(data.message || "Authentication successful");
       setIsLoading(false);
     },
     onError: (err: Error) => {
-      toast.error(err.message || 'Unauthorized access');
-      router.replace('/dashboard');
+      toast.error(err.message || "Unauthorized access");
+      router.replace("/dashboard");
     },
   });
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+    const storedToken = localStorage.getItem("token");
 
     if (!storedToken) {
-      router.replace('/signin');
+      router.replace("/signin");
     } else {
       verifyUserInRoomMutation.mutate(roomId);
     }
@@ -42,10 +42,10 @@ const ProtectCanvasRoute = ({ children, roomId }: ProtectCanvasRouteProps) => {
 
   if (isLoading || verifyUserInRoomMutation.isPending) {
     return (
-      <div className='flex h-screen items-center justify-center bg-black'>
-        <div className='flex flex-col items-center space-y-4'>
+      <div className="flex h-screen items-center justify-center bg-black">
+        <div className="flex flex-col items-center space-y-4">
           <Spinner />
-          <p className='text-xl font-medium text-gray-200'>
+          <p className="text-xl font-medium text-gray-200">
             {`Just a moment... we're getting things ready for you.`}
           </p>
         </div>

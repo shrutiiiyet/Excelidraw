@@ -1,6 +1,6 @@
-import { HTTP_URL } from '@/config';
-import axios from 'axios';
-import { getAuthHeaders } from './room';
+import { HTTP_URL } from "@/config";
+import axios from "axios";
+import { getAuthHeaders } from "./room";
 
 export const getExistingShapes = async (roomId: string) => {
   try {
@@ -13,9 +13,9 @@ export const getExistingShapes = async (roomId: string) => {
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw new Error(
-        error.response?.data?.error || 'failed to get canvas shapes',
+        error.response?.data?.error || "failed to get canvas shapes",
       );
     }
-    throw new Error('Unexpected error occurred while fetching canvas shapes.');
+    throw new Error("Unexpected error occurred while fetching canvas shapes.");
   }
 };

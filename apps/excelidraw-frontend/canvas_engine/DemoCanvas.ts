@@ -1,15 +1,15 @@
-import { Tool } from '@/type/tool';
-import cuid from 'cuid';
-import rough from 'roughjs';
-import { RoughCanvas } from 'roughjs/bin/canvas';
-import { Drawable } from 'roughjs/bin/core';
-import { RoughGenerator } from 'roughjs/bin/generator';
-import { SelectionManager } from './SelectionManager';
-import { getExistingShapes } from '@/api/canvas';
-import { Eraser } from './eraser';
-import type { Shape, ShapeOptions } from '@repo/types';
-import { CanvasMessage } from '@/hooks/useSocket';
-import { getStroke } from 'perfect-freehand';
+import { Tool } from "@/type/tool";
+import cuid from "cuid";
+import rough from "roughjs";
+import { RoughCanvas } from "roughjs/bin/canvas";
+import { Drawable } from "roughjs/bin/core";
+import { RoughGenerator } from "roughjs/bin/generator";
+import { SelectionManager } from "./SelectionManager";
+import { getExistingShapes } from "@/api/canvas";
+import { Eraser } from "./eraser";
+import type { Shape, ShapeOptions } from "@repo/types";
+import { CanvasMessage } from "@/hooks/useSocket";
+import { getStroke } from "perfect-freehand";
 
 /**
  * Main drawing engine that handles shape creation, manipulation, and rendering
@@ -24,14 +24,14 @@ export class CanvasEngine {
 
   // Current action state
   private action:
-    | 'none'
-    | 'moving'
-    | 'drawing'
-    | 'resizing'
-    | 'rotating'
-    | 'marquee-selecting' = 'none';
+    | "none"
+    | "moving"
+    | "drawing"
+    | "resizing"
+    | "rotating"
+    | "marquee-selecting" = "none";
 
-  private selectedTool: Tool = 'Selection';
+  private selectedTool: Tool = "Selection";
   private existingShapes: Shape[] = [];
   private paths: [number, number][] = [];
   private pressures: number[] = [];
@@ -61,12 +61,12 @@ export class CanvasEngine {
   };
 
   // Current drawing style settings
-  private roughness: 'none' | 'normal' | 'high' = 'none';
-  private strokeStyle: 'solid' | 'dashed' | 'dotted' = 'solid';
-  private strokeWidth: 'thin' | 'medium' | 'thick' = 'thin';
-  private fillStyle: 'hachure' | 'solid' | 'cross-hatch' = 'hachure';
-  private fillColor: string = 'transparent';
-  private strokeColor: string = 'white';
+  private roughness: "none" | "normal" | "high" = "none";
+  private strokeStyle: "solid" | "dashed" | "dotted" = "solid";
+  private strokeWidth: "thin" | "medium" | "thick" = "thin";
+  private fillStyle: "hachure" | "solid" | "cross-hatch" = "hachure";
+  private fillColor: string = "transparent";
+  private strokeColor: string = "white";
   private seed = 42;
 
   private roomId: string;
@@ -92,7 +92,7 @@ export class CanvasEngine {
     sendMessage: (message: CanvasMessage) => void,
   ) {
     this.canvas = canvas;
-    this.context = canvas.getContext('2d')!;
+    this.context = canvas.getContext("2d")!;
     this.rc = rough.canvas(canvas);
     this.generator = rough.generator();
     this.roomId = roomId;
@@ -123,14 +123,14 @@ export class CanvasEngine {
    * Sets up pointer and keyboard event handlers for drawing and selection
    */
   private initHandlers() {
-    this.canvas.addEventListener('pointerdown', this.pointerDownHandler);
-    this.canvas.addEventListener('pointermove', this.pointerMoveHandler);
-    this.canvas.addEventListener('pointerup', this.pointerUpHandler);
-    this.canvas.addEventListener('pointercancel', this.pointerUpHandler);
-    this.canvas.addEventListener('pointerout', this.pointerUpHandler);
+    this.canvas.addEventListener("pointerdown", this.pointerDownHandler);
+    this.canvas.addEventListener("pointermove", this.pointerMoveHandler);
+    this.canvas.addEventListener("pointerup", this.pointerUpHandler);
+    this.canvas.addEventListener("pointercancel", this.pointerUpHandler);
+    this.canvas.addEventListener("pointerout", this.pointerUpHandler);
 
     // Add keyboard event listeners for modifier keys
-    window.addEventListener('keydown', this.keyDownHandler);
+    window.addEventListener("keydown", this.keyDownHandler);
   }
 
   /**
@@ -140,13 +140,13 @@ export class CanvasEngine {
     if (this.textInput) {
       this.textInput.remove();
     }
-    this.canvas.removeEventListener('pointerdown', this.pointerDownHandler);
-    this.canvas.removeEventListener('pointermove', this.pointerMoveHandler);
-    this.canvas.removeEventListener('pointerup', this.pointerUpHandler);
-    this.canvas.removeEventListener('pointercancel', this.pointerUpHandler);
-    this.canvas.removeEventListener('pointerout', this.pointerUpHandler);
+    this.canvas.removeEventListener("pointerdown", this.pointerDownHandler);
+    this.canvas.removeEventListener("pointermove", this.pointerMoveHandler);
+    this.canvas.removeEventListener("pointerup", this.pointerUpHandler);
+    this.canvas.removeEventListener("pointercancel", this.pointerUpHandler);
+    this.canvas.removeEventListener("pointerout", this.pointerUpHandler);
 
-    window.removeEventListener('keydown', this.keyDownHandler);
+    window.removeEventListener("keydown", this.keyDownHandler);
   }
 
   /**
@@ -154,7 +154,7 @@ export class CanvasEngine {
    */
   private keyDownHandler = (event: KeyboardEvent) => {
     // Delete key for deleting selected shape
-    if (event.key === 'Delete' || event.key === 'Backspace') {
+    if (event.key === "Delete" || event.key === "Backspace") {
       this.deleteSelectedShape();
     }
   };
@@ -167,11 +167,11 @@ export class CanvasEngine {
     if (selectedShape) {
       // Remove the selected shape from existingShapes
       this.existingShapes = this.existingShapes.filter(
-        shape => shape.id !== selectedShape.id,
+        (shape) => shape.id !== selectedShape.id,
       );
 
       this.sendMessage({
-        type: 'canvas:erase',
+        type: "canvas:erase",
         room: this.roomId,
         shapeId: selectedShape.id,
       });
@@ -220,29 +220,29 @@ export class CanvasEngine {
     this.x1 = event.clientX - rect.left;
     this.y1 = event.clientY - rect.top;
 
-    if (this.selectedTool === 'Text') {
+    if (this.selectedTool === "Text") {
       this.startTextInput(event.clientX, event.clientY);
       return;
     }
 
-    if (this.selectedTool === 'Eraser') {
+    if (this.selectedTool === "Eraser") {
       this.isErasing = true;
       this.eraseAtPoint(this.x1, this.y1);
       return;
     }
 
-    if (this.selectedTool === 'Freehand') {
+    if (this.selectedTool === "Freehand") {
       this.isDrawingFreehand = true;
       this.paths = [[this.x1, this.y1]];
       this.pressures = [event.pressure || 0.5];
       return;
     }
 
-    if (this.selectedTool === 'Selection') {
+    if (this.selectedTool === "Selection") {
       // Check if clicking on text shape
       const textShape = this.existingShapes.find(
-        shape =>
-          shape.type === 'Text' &&
+        (shape) =>
+          shape.type === "Text" &&
           this.x1 >= shape.x1 &&
           this.x1 <= shape.x2 &&
           this.y1 >= shape.y1 &&
@@ -251,7 +251,7 @@ export class CanvasEngine {
 
       if (textShape) {
         this.selectionManager.setSelectedShape(textShape);
-        this.action = 'moving';
+        this.action = "moving";
         this.selectionManager.beginDrag();
         return;
       }
@@ -261,7 +261,7 @@ export class CanvasEngine {
         this.selectionManager.getSelectedShape() &&
         this.selectionManager.isNearRotationHandle(this.x1, this.y1)
       ) {
-        this.action = 'rotating';
+        this.action = "rotating";
         this.selectionManager.beginRotation();
         return;
       }
@@ -272,7 +272,7 @@ export class CanvasEngine {
         this.selectionManager.getResizeHandleAtPoint(this.x1, this.y1);
 
       if (handle) {
-        this.action = 'resizing';
+        this.action = "resizing";
         this.selectionManager.beginResize(handle);
       } else {
         // Check if clicking on existing shape
@@ -291,11 +291,11 @@ export class CanvasEngine {
             this.selectionManager.setSelectedShape(shape);
           }
 
-          this.action = 'moving';
+          this.action = "moving";
           this.selectionManager.beginDrag();
         } else {
           // If not clicking on any shape, start marquee selection and clear current selection
-          this.action = 'marquee-selecting';
+          this.action = "marquee-selecting";
           this.selectionManager.beginMarqueeSelection(this.x1, this.y1);
 
           // Clear selection if clicking on empty space
@@ -306,7 +306,7 @@ export class CanvasEngine {
       }
     } else {
       // Begin drawing new shape
-      this.action = 'drawing';
+      this.action = "drawing";
     }
   };
 
@@ -319,7 +319,7 @@ export class CanvasEngine {
     const currentY = event.clientY - rect.top;
 
     // Only handle eraser if the pointer is actually over the canvas
-    if (this.selectedTool === 'Eraser') {
+    if (this.selectedTool === "Eraser") {
       // Check if pointer is within canvas bounds
       const isOverCanvas =
         currentX >= 0 &&
@@ -340,7 +340,7 @@ export class CanvasEngine {
       return;
     }
 
-    if (this.selectedTool === 'Freehand' && this.isDrawingFreehand) {
+    if (this.selectedTool === "Freehand" && this.isDrawingFreehand) {
       this.paths.push([currentX, currentY]);
       this.pressures.push(event.pressure || 0.5);
       this.clearCanvas();
@@ -351,13 +351,13 @@ export class CanvasEngine {
     // Update cursor style based on what's under the cursor
     this.selectionManager.updateCursor(currentX, currentY);
 
-    if (this.action === 'drawing') {
+    if (this.action === "drawing") {
       this.x2 = currentX;
       this.y2 = currentY;
       this.clearCanvas();
       this.previewShape();
     } else if (
-      this.action === 'moving' &&
+      this.action === "moving" &&
       this.selectionManager.getSelectedShape()
     ) {
       const deltaX = currentX - this.x1;
@@ -366,17 +366,17 @@ export class CanvasEngine {
       this.x1 = currentX;
       this.y1 = currentY;
       this.clearCanvas();
-    } else if (this.action === 'resizing') {
+    } else if (this.action === "resizing") {
       const deltaX = currentX - this.x1;
       const deltaY = currentY - this.y1;
       this.selectionManager.updateResize(deltaX, deltaY);
       this.x1 = currentX;
       this.y1 = currentY;
       this.clearCanvas();
-    } else if (this.action === 'rotating') {
+    } else if (this.action === "rotating") {
       this.selectionManager.updateRotation(currentX, currentY);
       this.clearCanvas();
-    } else if (this.action === 'marquee-selecting') {
+    } else if (this.action === "marquee-selecting") {
       this.selectionManager.updateMarqueeSelection(currentX, currentY);
       this.clearCanvas();
       this.selectionManager.drawMarqueeSelection();
@@ -387,18 +387,18 @@ export class CanvasEngine {
    * Handles pointer up events to finalize drawing, moving, or resizing
    */
   private pointerUpHandler = (event: PointerEvent) => {
-    if (this.selectedTool === 'Eraser') {
+    if (this.selectedTool === "Eraser") {
       this.isErasing = false;
       this.clearCanvas(); // Clear any remaining eraser cursor
       return;
     }
 
-    if (this.selectedTool === 'Freehand' && this.isDrawingFreehand) {
+    if (this.selectedTool === "Freehand" && this.isDrawingFreehand) {
       this.isDrawingFreehand = false;
       if (this.paths.length > 1) {
         const newShape: Shape = {
           id: cuid(),
-          type: 'Freehand',
+          type: "Freehand",
           x1: this.paths[0][0],
           y1: this.paths[0][1],
           x2: this.paths[this.paths.length - 1][0],
@@ -410,7 +410,7 @@ export class CanvasEngine {
 
         this.existingShapes.push(newShape);
         this.sendMessage({
-          type: 'canvas:draw',
+          type: "canvas:draw",
           room: this.roomId,
           data: newShape,
         });
@@ -421,25 +421,25 @@ export class CanvasEngine {
       return;
     }
 
-    if (this.action === 'drawing') {
+    if (this.action === "drawing") {
       const rect = this.canvas.getBoundingClientRect();
       this.x2 = event.clientX - rect.left;
       this.y2 = event.clientY - rect.top;
       this.drawShape();
-    } else if (this.action === 'moving') {
+    } else if (this.action === "moving") {
       this.selectionManager.getSelectedShape();
       this.selectionManager.endDrag();
-    } else if (this.action === 'resizing') {
+    } else if (this.action === "resizing") {
       this.selectionManager.getSelectedShape();
       this.selectionManager.endResize();
-    } else if (this.action === 'rotating') {
+    } else if (this.action === "rotating") {
       this.selectionManager.getSelectedShape();
       this.selectionManager.endRotation();
-    } else if (this.action === 'marquee-selecting') {
+    } else if (this.action === "marquee-selecting") {
       this.selectionManager.completeMarqueeSelection(this.existingShapes);
     }
 
-    this.action = 'none';
+    this.action = "none";
     this.clearCanvas();
   };
 
@@ -451,7 +451,7 @@ export class CanvasEngine {
     const roughOptions = this.convertToRoughOptions(shapeOptions);
     const drawable = this.generateDrawableFromShapeData(
       {
-        id: 'preview',
+        id: "preview",
         type: this.selectedTool,
         x1: this.x1,
         y1: this.y1,
@@ -463,7 +463,7 @@ export class CanvasEngine {
     );
 
     if (Array.isArray(drawable)) {
-      drawable.forEach(d => this.rc.draw(d));
+      drawable.forEach((d) => this.rc.draw(d));
     } else if (drawable) {
       this.rc.draw(drawable);
     }
@@ -474,7 +474,7 @@ export class CanvasEngine {
    */
   private drawShape() {
     if (
-      ['Rectangle', 'Diamond', 'Ellipse', 'Arrow', 'Line'].includes(
+      ["Rectangle", "Diamond", "Ellipse", "Arrow", "Line"].includes(
         this.selectedTool,
       )
     ) {
@@ -493,7 +493,7 @@ export class CanvasEngine {
         this.existingShapes.push(newShape);
 
         this.sendMessage({
-          type: 'canvas:draw',
+          type: "canvas:draw",
           room: this.roomId,
           data: newShape,
         });
@@ -507,8 +507,8 @@ export class CanvasEngine {
    * Redraws all shapes on the canvas
    */
   private drawAllShapes() {
-    this.existingShapes.forEach(shape => {
-      if (shape.type === 'Freehand' && shape.paths) {
+    this.existingShapes.forEach((shape) => {
+      if (shape.type === "Freehand" && shape.paths) {
         this.context.save();
         this.context.fillStyle = shape.options.strokeColor;
         this.context.beginPath();
@@ -532,16 +532,16 @@ export class CanvasEngine {
           smoothing: 0.5,
           streamline: 0.5,
           simulatePressure: true,
-          easing: t => t,
+          easing: (t) => t,
           start: {
             taper: 0,
             cap: true,
-            easing: t => t,
+            easing: (t) => t,
           },
           end: {
             taper: 0,
             cap: true,
-            easing: t => t,
+            easing: (t) => t,
           },
         });
 
@@ -557,15 +557,15 @@ export class CanvasEngine {
         this.context.closePath();
         this.context.fill();
         this.context.restore();
-      } else if (shape.type === 'Text' && shape.text) {
+      } else if (shape.type === "Text" && shape.text) {
         this.context.save();
-        this.context.font = '32px Comic Sans MS, cursive';
+        this.context.font = "32px Comic Sans MS, cursive";
         this.context.fillStyle = shape.options.strokeColor;
-        this.context.textBaseline = 'top';
-        this.context.textAlign = 'left';
+        this.context.textBaseline = "top";
+        this.context.textAlign = "left";
 
         // Add subtle shadow for better visibility
-        this.context.shadowColor = 'rgba(0, 0, 0, 0.2)';
+        this.context.shadowColor = "rgba(0, 0, 0, 0.2)";
         this.context.shadowBlur = 2;
         this.context.shadowOffsetX = 1;
         this.context.shadowOffsetY = 1;
@@ -592,7 +592,7 @@ export class CanvasEngine {
 
         // Draw the shape
         if (Array.isArray(drawable)) {
-          drawable.forEach(d => this.rc.draw(d));
+          drawable.forEach((d) => this.rc.draw(d));
         } else if (drawable) {
           this.rc.draw(drawable);
         }
@@ -614,13 +614,13 @@ export class CanvasEngine {
       stroke: string;
       strokeWidth: number;
       fill: string;
-      fillStyle: 'solid' | 'hachure' | 'cross-hatch';
+      fillStyle: "solid" | "hachure" | "cross-hatch";
       strokeLineDash: number[] | never[];
       seed: number;
     },
   ): Drawable | Drawable[] {
     switch (shape.type) {
-      case 'Rectangle':
+      case "Rectangle":
         return this.generator.rectangle(
           Math.min(shape.x1, shape.x2),
           Math.min(shape.y1, shape.y2),
@@ -628,7 +628,7 @@ export class CanvasEngine {
           Math.abs(shape.y2 - shape.y1),
           options,
         );
-      case 'Diamond': {
+      case "Diamond": {
         const centerX = (shape.x1 + shape.x2) / 2;
         const centerY = (shape.y1 + shape.y2) / 2;
         const width = Math.abs(shape.x2 - shape.x1);
@@ -641,7 +641,7 @@ export class CanvasEngine {
         ];
         return this.generator.polygon(points, options);
       }
-      case 'Ellipse': {
+      case "Ellipse": {
         const centerX = (shape.x1 + shape.x2) / 2;
         const centerY = (shape.y1 + shape.y2) / 2;
         return this.generator.ellipse(
@@ -652,7 +652,7 @@ export class CanvasEngine {
           options,
         );
       }
-      case 'Line':
+      case "Line":
         return this.generator.line(
           shape.x1,
           shape.y1,
@@ -660,7 +660,7 @@ export class CanvasEngine {
           shape.y2,
           options,
         );
-      case 'Arrow': {
+      case "Arrow": {
         const angle = Math.atan2(shape.y2 - shape.y1, shape.x2 - shape.x1);
         const arrowSize = 16;
         const arrowLeftX = shape.x2 - arrowSize * Math.cos(angle - Math.PI / 6);
@@ -722,7 +722,7 @@ export class CanvasEngine {
 
     // When switching to Selection tool, maintain current selection
     // When switching to other tools, clear selection
-    if (tool !== 'Selection') {
+    if (tool !== "Selection") {
       this.selectionManager.setSelectedShape(null);
       this.clearCanvas();
     }
@@ -735,7 +735,7 @@ export class CanvasEngine {
   /**
    * Sets the stroke style (solid, dashed, dotted)
    */
-  public setStrokeStyle(style: 'solid' | 'dashed' | 'dotted') {
+  public setStrokeStyle(style: "solid" | "dashed" | "dotted") {
     this.strokeStyle = style;
     this.updateSelectedShapeStyle();
   }
@@ -743,7 +743,7 @@ export class CanvasEngine {
   /**
    * Sets the stroke width (thin, medium, thick)
    */
-  public setStrokeWidth(width: 'thin' | 'medium' | 'thick') {
+  public setStrokeWidth(width: "thin" | "medium" | "thick") {
     this.strokeWidth = width;
     this.updateSelectedShapeStyle();
   }
@@ -751,7 +751,7 @@ export class CanvasEngine {
   /**
    * Sets the roughness level (none, normal, high)
    */
-  public setRoughness(level: 'none' | 'normal' | 'high') {
+  public setRoughness(level: "none" | "normal" | "high") {
     this.roughness = level;
     this.updateSelectedShapeStyle();
   }
@@ -759,7 +759,7 @@ export class CanvasEngine {
   /**
    * Sets the fill style (hachure, solid, cross-hatch)
    */
-  public setFillStyle(style: 'hachure' | 'solid' | 'cross-hatch') {
+  public setFillStyle(style: "hachure" | "solid" | "cross-hatch") {
     this.fillStyle = style;
     this.updateSelectedShapeStyle();
   }
@@ -824,7 +824,7 @@ export class CanvasEngine {
       };
 
       this.sendMessage({
-        type: 'canvas:update',
+        type: "canvas:update",
         room: this.roomId,
         data: selectedShape,
       });
@@ -859,10 +859,10 @@ export class CanvasEngine {
     const shapesToErase: Shape[] = [];
     const remainingShapes: Shape[] = [];
 
-    this.existingShapes.forEach(shape => {
-      if (shape.type === 'Freehand' && shape.paths) {
+    this.existingShapes.forEach((shape) => {
+      if (shape.type === "Freehand" && shape.paths) {
         // For freehand shapes, check if any point is within eraser radius
-        const isErased = shape.paths.some(point => {
+        const isErased = shape.paths.some((point) => {
           const distance = Math.sqrt(
             Math.pow(point[0] - x, 2) + Math.pow(point[1] - y, 2),
           );
@@ -874,7 +874,7 @@ export class CanvasEngine {
         } else {
           remainingShapes.push(shape);
         }
-      } else if (shape.type === 'Text') {
+      } else if (shape.type === "Text") {
         // Check if the eraser point is within the text bounds
         const isWithinText =
           x >= shape.x1 && x <= shape.x2 && y >= shape.y1 && y <= shape.y2;
@@ -889,7 +889,9 @@ export class CanvasEngine {
         const currentEraser = this.eraser;
         if (currentEraser) {
           const erasedShapes = currentEraser.erase(x, y);
-          const isErased = !erasedShapes.some(erased => erased.id === shape.id);
+          const isErased = !erasedShapes.some(
+            (erased) => erased.id === shape.id,
+          );
 
           if (isErased) {
             shapesToErase.push(shape);
@@ -901,9 +903,9 @@ export class CanvasEngine {
     });
 
     // Send erase messages for each erased shape
-    shapesToErase.forEach(shape => {
+    shapesToErase.forEach((shape) => {
       this.sendMessage({
-        type: 'canvas:erase',
+        type: "canvas:erase",
         room: this.roomId,
         shapeId: shape.id,
       });
@@ -921,7 +923,7 @@ export class CanvasEngine {
    */
   private drawEraserCursor(x: number, y: number): void {
     this.context.save();
-    this.context.strokeStyle = 'white';
+    this.context.strokeStyle = "white";
     this.context.lineWidth = 1;
     // this.context.setLineDash([3, 3]); // Make the cursor more visible
     this.context.beginPath();
@@ -947,7 +949,9 @@ export class CanvasEngine {
   }
 
   public OnUpdateMessage(data: Shape): void {
-    const index = this.existingShapes.findIndex(shape => shape.id === data.id);
+    const index = this.existingShapes.findIndex(
+      (shape) => shape.id === data.id,
+    );
     if (index !== -1) {
       this.existingShapes[index] = { ...this.existingShapes[index], ...data };
       this.clearCanvas();
@@ -955,8 +959,10 @@ export class CanvasEngine {
   }
 
   public onEraseMessage(shapeId: string): void {
-    const index = this.existingShapes.findIndex(shape => shape.id === shapeId);
-    console.log('erase');
+    const index = this.existingShapes.findIndex(
+      (shape) => shape.id === shapeId,
+    );
+    console.log("erase");
     if (index !== -1) {
       this.existingShapes.splice(index, 1);
       this.clearCanvas();
@@ -964,7 +970,7 @@ export class CanvasEngine {
   }
 
   public OnClearMessage() {
-    console.log('clearCanvas');
+    console.log("clearCanvas");
     this.existingShapes = [];
     this.clearCanvas();
   }
@@ -982,16 +988,16 @@ export class CanvasEngine {
       smoothing: 0.5,
       streamline: 0.5,
       simulatePressure: true,
-      easing: t => t,
+      easing: (t) => t,
       start: {
         taper: 0,
         cap: true,
-        easing: t => t,
+        easing: (t) => t,
       },
       end: {
         taper: 0,
         cap: true,
-        easing: t => t,
+        easing: (t) => t,
       },
     });
 
@@ -1034,7 +1040,7 @@ export class CanvasEngine {
         textInput.remove();
       }
     } catch (error) {
-      console.warn('Error during text input cleanup:', error);
+      console.warn("Error during text input cleanup:", error);
     }
   }
 
@@ -1048,25 +1054,25 @@ export class CanvasEngine {
     // const canvasY = y - rect.top;
 
     // Create new text input
-    const textInput = document.createElement('input');
-    textInput.type = 'text';
-    textInput.style.position = 'absolute';
+    const textInput = document.createElement("input");
+    textInput.type = "text";
+    textInput.style.position = "absolute";
     textInput.style.left = `${x}px`;
     textInput.style.top = `${y}px`;
-    textInput.style.fontFamily = 'Comic Sans MS, cursive';
-    textInput.style.fontSize = '32px';
-    textInput.style.background = 'transparent';
-    textInput.style.border = 'none';
-    textInput.style.outline = 'none';
+    textInput.style.fontFamily = "Comic Sans MS, cursive";
+    textInput.style.fontSize = "32px";
+    textInput.style.background = "transparent";
+    textInput.style.border = "none";
+    textInput.style.outline = "none";
     textInput.style.color = this.strokeColor;
-    textInput.style.padding = '4px 4px';
-    textInput.style.margin = '0';
-    textInput.style.width = 'auto';
-    textInput.style.minWidth = '50px';
-    textInput.style.zIndex = '1000';
-    textInput.style.cursor = 'text';
-    textInput.style.borderRadius = '4px';
-    textInput.style.transition = 'background-color 0.2s';
+    textInput.style.padding = "4px 4px";
+    textInput.style.margin = "0";
+    textInput.style.width = "auto";
+    textInput.style.minWidth = "50px";
+    textInput.style.zIndex = "1000";
+    textInput.style.cursor = "text";
+    textInput.style.borderRadius = "4px";
+    textInput.style.transition = "background-color 0.2s";
 
     // Add to canvas container first
     const canvasContainer = this.canvas.parentElement;
@@ -1084,20 +1090,20 @@ export class CanvasEngine {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         e.preventDefault();
         if (textInput === this.textInput) {
           this.finishTextInput(textInput);
         }
-      } else if (e.key === 'Escape') {
+      } else if (e.key === "Escape") {
         e.preventDefault();
         this.cleanupTextInput();
         this.clearCanvas();
       }
     };
 
-    textInput.addEventListener('blur', handleBlur);
-    textInput.addEventListener('keydown', handleKeyDown);
+    textInput.addEventListener("blur", handleBlur);
+    textInput.addEventListener("keydown", handleKeyDown);
 
     // Focus after a small delay
     setTimeout(() => {
@@ -1118,13 +1124,13 @@ export class CanvasEngine {
 
       // Measure text width for more accurate sizing
       this.context.save();
-      this.context.font = '32px Comic Sans MS, cursive';
+      this.context.font = "32px Comic Sans MS, cursive";
       const textWidth = this.context.measureText(text).width;
       this.context.restore();
 
       const newShape: Shape = {
         id: cuid(),
-        type: 'Text',
+        type: "Text",
         x1: rect.left - canvasRect.left,
         y1: rect.top - canvasRect.top,
         x2: rect.left - canvasRect.left + textWidth,
@@ -1135,7 +1141,7 @@ export class CanvasEngine {
 
       this.existingShapes.push(newShape);
       this.sendMessage({
-        type: 'canvas:draw',
+        type: "canvas:draw",
         room: this.roomId,
         data: newShape,
       });

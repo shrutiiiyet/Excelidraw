@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 import cors from "cors";
-import { HTTP_PORT } from "./config/env";
+import { HTTP_PORT, FRONTEND_URL } from "./config/env";
 
 // import routers
 import authRouter from "./routes/authRoutes";
@@ -9,7 +9,13 @@ import canvasRouter from "./routes/canvasRoutes";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [FRONTEND_URL],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(express.json());
 

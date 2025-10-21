@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from "react";
 
 const MIN_ZOOM = 100; // 50%
 const MAX_ZOOM = 300; // 300%
@@ -11,25 +11,25 @@ export const useZoom = () => {
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '+' || e.key === '=') {
+      if (e.key === "+" || e.key === "=") {
         e.preventDefault();
-        setZoom(prev => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
-      } else if (e.key === '-' || e.key === '_') {
+        setZoom((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
+      } else if (e.key === "-" || e.key === "_") {
         e.preventDefault();
-        setZoom(prev => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
+        setZoom((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const zoomIn = useCallback(() => {
-    setZoom(prev => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
+    setZoom((prev) => Math.min(prev + ZOOM_STEP, MAX_ZOOM));
   }, []);
 
   const zoomOut = useCallback(() => {
-    setZoom(prev => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
+    setZoom((prev) => Math.max(prev - ZOOM_STEP, MIN_ZOOM));
   }, []);
 
   return { zoom, zoomIn, zoomOut };

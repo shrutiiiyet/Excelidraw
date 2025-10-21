@@ -1,5 +1,5 @@
 import { type Shape } from "@repo/common/types";
-import { client } from "../index"
+import { client } from "../index";
 
 export const createCanvas = async ({
   roomId,
@@ -22,7 +22,7 @@ export const createCanvas = async ({
 
 export const deleteUserCanvasInRoom = async (
   roomId: string,
-  userId: string
+  userId: string,
 ) => {
   const existingCanvas = await client.canvas.findFirst({
     where: { roomId: roomId, userId },

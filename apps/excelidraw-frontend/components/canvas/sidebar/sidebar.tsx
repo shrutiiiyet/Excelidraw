@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Tool } from '@/type/tool';
-import clsx from 'clsx';
-import React from 'react';
+import { Tool } from "@/type/tool";
+import clsx from "clsx";
+import React from "react";
 import {
   HachureSquareIcon,
   SquareIcon,
   CrossHatchSquareIcon,
-} from '@/data/icons/canvas-sidebar/fill-icons';
+} from "@/data/icons/canvas-sidebar/fill-icons";
 import {
   HorizontalLineIcon,
   BoldHorizontalLineIcon,
@@ -18,12 +18,12 @@ import {
   SquiggleLineIcon,
   ComplexSquiggleIcon,
   SketchyLineIcon,
-} from '@/data/icons/canvas-sidebar/stroke-icons';
+} from "@/data/icons/canvas-sidebar/stroke-icons";
 
-import ColorPalette from './color-palette';
-import IconSelector from './icon-selector';
-import { useCanvasStyleStore } from '@/stores/canvas_style.store';
-import { useIsShapeSelectedStore } from '@/stores/shape_selected.store';
+import ColorPalette from "./color-palette";
+import IconSelector from "./icon-selector";
+import { useCanvasStyleStore } from "@/stores/canvas_style.store";
+import { useIsShapeSelectedStore } from "@/stores/shape_selected.store";
 
 interface SidebarProps {
   selectedTool: Tool;
@@ -49,14 +49,14 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedTool }) => {
 
   return (
     <section
-      onMouseUp={event => event.stopPropagation()}
+      onMouseUp={(event) => event.stopPropagation()}
       className={clsx(
-        'bg-background absolute left-4 flex h-auto flex-col space-y-4 rounded-lg px-3 py-4 text-gray-400 shadow-md',
-        'top-32',
+        "bg-background absolute left-4 flex h-auto flex-col space-y-4 rounded-lg px-3 py-4 text-gray-400 shadow-md",
+        "top-32",
         !isShapeSelected &&
-          (selectedTool === 'Eraser' || selectedTool === 'Selection')
-          ? 'hidden'
-          : '',
+          (selectedTool === "Eraser" || selectedTool === "Selection")
+          ? "hidden"
+          : "",
       )}
     >
       {/* Stroke Settings */}
@@ -64,54 +64,54 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedTool }) => {
         <ColorPalette
           selectedColor={strokeColor}
           setColor={setStrokeColor}
-          type='Stroke'
+          type="Stroke"
         />
 
         <ColorPalette
           selectedColor={backgroundColor}
           setColor={setBackgroundColor}
-          type='Background'
+          type="Background"
         />
 
         <IconSelector
-          title='Fill'
+          title="Fill"
           icons={[
-            { Icon: HachureSquareIcon, key: 'hachure' },
-            { Icon: CrossHatchSquareIcon, key: 'cross-hatch' },
-            { Icon: SquareIcon, key: 'solid' },
+            { Icon: HachureSquareIcon, key: "hachure" },
+            { Icon: CrossHatchSquareIcon, key: "cross-hatch" },
+            { Icon: SquareIcon, key: "solid" },
           ]}
           selectedIcon={fillStyle}
           setSelectedIcon={setFillStyle}
         />
 
         <IconSelector
-          title='Stroke Width'
+          title="Stroke Width"
           icons={[
-            { Icon: HorizontalLineIcon, key: 'thin' },
-            { Icon: BoldHorizontalLineIcon, key: 'medium' },
-            { Icon: ThickHorizontalLineIcon, key: 'thick' },
+            { Icon: HorizontalLineIcon, key: "thin" },
+            { Icon: BoldHorizontalLineIcon, key: "medium" },
+            { Icon: ThickHorizontalLineIcon, key: "thick" },
           ]}
           selectedIcon={strokeWidth}
           setSelectedIcon={setStrokeWidth}
         />
 
         <IconSelector
-          title='Stroke Style'
+          title="Stroke Style"
           icons={[
-            { Icon: ThinHorizontalLineIcon, key: 'solid' },
-            { Icon: DashedLineIcon, key: 'dashed' },
-            { Icon: DottedLineIcon, key: 'dotted' },
+            { Icon: ThinHorizontalLineIcon, key: "solid" },
+            { Icon: DashedLineIcon, key: "dashed" },
+            { Icon: DottedLineIcon, key: "dotted" },
           ]}
           selectedIcon={strokeStyle}
           setSelectedIcon={setStrokeStyle}
         />
 
         <IconSelector
-          title='Roughness'
+          title="Roughness"
           icons={[
-            { Icon: SquiggleLineIcon, key: 'none' },
-            { Icon: ComplexSquiggleIcon, key: 'normal' },
-            { Icon: SketchyLineIcon, key: 'high' },
+            { Icon: SquiggleLineIcon, key: "none" },
+            { Icon: ComplexSquiggleIcon, key: "normal" },
+            { Icon: SketchyLineIcon, key: "high" },
           ]}
           selectedIcon={roughness}
           setSelectedIcon={setRoughness}

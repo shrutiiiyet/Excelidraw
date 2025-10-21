@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "globalEnv": ["JWT_SECRET", "WS_PORT", "PORT", "DATABASE_URL", "JWT_EXPIRES_IN", "NEXT_PUBLIC_SITE_URL", "NEXT_PUBLIC_HTTP_URL", "NEXT_PUBLIC_WS__URL"],
+  "globalEnv": ["JWT_SECRET", "WS_PORT", "HTTP_PORT", "DATABASE_URL", "JWT_EXPIRES_IN", "NEXT_PUBLIC_SITE_URL", "NEXT_PUBLIC_HTTP_URL", "NEXT_PUBLIC_WS__URL"],
   "ui": "tui",
   "tasks": {
     "build": {

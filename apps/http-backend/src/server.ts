@@ -1,6 +1,6 @@
 import express, { type Request, type Response } from "express";
 import cors from "cors";
-import { HTTP_PORT, FRONTEND_URL } from "./config/env";
+import { HTTP_PORT, NEXT_PUBLIC_SITE_URL } from "./config/env";
 
 // import routers
 import authRouter from "./routes/authRoutes";
@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [FRONTEND_URL],
+    origin: true,
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }),

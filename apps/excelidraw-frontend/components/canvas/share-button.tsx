@@ -51,7 +51,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ roomId }) => {
     setIsProcessing(true);
     try {
       await navigator.share({
-        title: "Join My CoSketch Room!",
+        title: "Join My Excelidraw Room!",
         text: shareMessage,
         url: dashboardUrl,
       });

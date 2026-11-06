@@ -13,14 +13,13 @@
     "http-backend": {
       "root": "apps/http-backend",
       "framework": "express",
-      "entrypoint": "dist/server.js",
+      "entrypoint": "src/server.ts",
       "installCommand": "pnpm install --frozen-lockfile",
       "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=http-backend..."
     },
-
     "ws-backend": {
       "root": "apps/ws-backend",
-      "entrypoint": "dist/server.js",
+      "entrypoint": "src/server.ts",
       "installCommand": "pnpm install --frozen-lockfile",
       "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=ws-backend..."
     }

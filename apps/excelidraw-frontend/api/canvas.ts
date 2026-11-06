@@ -1,10 +1,11 @@
 import axios from "axios";
+import { HTTP_URL } from "@/config";
 import { getAuthHeaders } from "./room";
 
 export const getExistingShapes = async (roomId: string) => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/canvas/get-canvas-design/${roomId}`,
+      `${HTTP_URL}/canvas/get-canvas-design/${roomId}`,
       { headers: getAuthHeaders() },
     );
 

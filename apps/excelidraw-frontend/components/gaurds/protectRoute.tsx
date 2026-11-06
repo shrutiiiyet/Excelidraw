@@ -32,12 +32,12 @@ const ProtectRoute: React.FC<ProtectRouteProps> = ({ children }) => {
 
     if (!storedToken) {
       router.replace("/signin");
-    } else {
-      authorizeMutation.mutate({ token: storedToken });
+      setIsLoading(false);
+      return;
     }
 
-    return () => setIsLoading(false);
-  }, []);
+    authorizeMutation.mutate({ token: storedToken });
+  }, [router]);
 
   if (isLoading || authorizeMutation.isPending) {
     return (

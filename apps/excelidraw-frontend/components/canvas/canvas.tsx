@@ -165,7 +165,7 @@ const Canvas: React.FC<CanvasProps> = ({ roomId }) => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [canvasEngine]);
 
   // Cursor style
   useEffect(() => {

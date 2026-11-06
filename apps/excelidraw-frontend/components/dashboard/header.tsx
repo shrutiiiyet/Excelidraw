@@ -1,7 +1,5 @@
 import { knewave } from "@/data/fonts";
-import siteMetadata from "@/lib/siteMetadata";
-import Image from "next/image";
-import React from "react";
+import siteMetadata from "@/lib/siteMetaData";
 import Logout from "@/components/auth/logout";
 
 const DashboardHeader = () => {

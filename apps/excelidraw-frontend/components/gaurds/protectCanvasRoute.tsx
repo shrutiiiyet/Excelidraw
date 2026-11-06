@@ -33,12 +33,12 @@ const ProtectCanvasRoute = ({ children, roomId }: ProtectCanvasRouteProps) => {
 
     if (!storedToken) {
       router.replace("/signin");
-    } else {
-      verifyUserInRoomMutation.mutate(roomId);
+      setIsLoading(false);
+      return;
     }
 
-    return () => setIsLoading(false);
-  }, []);
+    verifyUserInRoomMutation.mutate(roomId);
+  }, [roomId, router]);
 
   if (isLoading || verifyUserInRoomMutation.isPending) {
     return (

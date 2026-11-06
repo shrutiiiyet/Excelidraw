@@ -2,6 +2,22 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const HTTP_URL = process.env.HTTP_URL || 'http://localhost:3001';
-export const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-export const WS_URL = 'http://localhost:8080';
+const getRuntimeUrl = (envKey: string, fallback: string) => {
+  const value = process.env[envKey];
+  return value && value.trim() ? value.trim() : fallback;
+};
+
+export const envSiteUrl = getRuntimeUrl(
+  "NEXT_PUBLIC_SITE_URL",
+  "http://localhost:3000",
+);
+
+export const HTTP_URL = getRuntimeUrl(
+  "NEXT_PUBLIC_API_URL",
+  "http://localhost:3001",
+);
+
+export const WS_URL = getRuntimeUrl(
+  "NEXT_PUBLIC_WS_URL",
+  "ws://localhost:8080",
+);

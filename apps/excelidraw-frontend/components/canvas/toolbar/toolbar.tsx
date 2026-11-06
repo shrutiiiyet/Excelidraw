@@ -99,7 +99,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ sendMessage, roomId }) => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("mouseup", resetTool);
     };
-  }, [isLocked, selectedTool]);
+  }, [handleToolSelect, isLocked, selectedTool, setSelectedTool]);
 
   return (
     <nav className="bg-background flex items-center justify-between gap-2 rounded-lg px-4 py-1 text-white shadow-md">

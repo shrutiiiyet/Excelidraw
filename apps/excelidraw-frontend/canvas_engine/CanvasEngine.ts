@@ -7,7 +7,7 @@ import { RoughGenerator } from "roughjs/bin/generator";
 import { SelectionManager } from "./SelectionManager";
 import { getExistingShapes } from "@/api/canvas";
 import { Eraser } from "./eraser";
-import type { Shape, ShapeOptions } from "@repo/types";
+import type { Shape, ShapeOptions } from "@repo/common";
 import { CanvasMessage } from "@/hooks/useSocket";
 import { getStroke } from "perfect-freehand";
 

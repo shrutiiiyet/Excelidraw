@@ -11,12 +11,10 @@ interface GetPageMetadataProps {
 const getPageMetadata = ({
   title,
   description,
-  image,
   path = "",
 }: GetPageMetadataProps): Metadata => {
   const metaTitle = `${title} | ${siteMetadata.title}`;
   const metaDescription = description ?? siteMetadata.description;
-  //const metaImage = image ? image : siteMetadata.socialBanner;
   const sitePath = path
     ? `${siteMetadata.siteUrl.replace(/\/$/, "")}/${path.replace(/^\//, "")}`
     : siteMetadata.siteUrl;
@@ -33,7 +31,6 @@ const getPageMetadata = ({
       description: metaDescription,
       url: "./",
       siteName: siteMetadata.title,
-      //images: [metaImage],
       locale: "en_US",
       type: "website",
     },
@@ -41,7 +38,6 @@ const getPageMetadata = ({
     twitter: {
       title: metaTitle,
       card: "summary_large_image",
-      //images: [metaImage],
     },
   };
 };

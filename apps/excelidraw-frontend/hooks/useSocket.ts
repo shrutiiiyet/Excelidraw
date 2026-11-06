@@ -1,4 +1,4 @@
-import { IncomingMessage, Shape } from "@repo/types";
+import { IncomingMessage, Shape } from "@repo/common";
 import { useEffect, useRef, useCallback } from "react";
 import { WS_URL } from "@/config";
 

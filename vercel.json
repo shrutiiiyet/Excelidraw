@@ -1,0 +1,89 @@
+
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "services": {
+    "excelidraw-frontend": {
+      "root": "apps/excelidraw-frontend",
+      "framework": "nextjs",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=excelidraw-frontend..."
+    },
+
+    "http-backend": {
+      "root": "apps/http-backend",
+      "framework": "express",
+      "entrypoint": "dist/server.js",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=http-backend..."
+    },
+
+    "ws-backend": {
+      "root": "apps/ws-backend",
+      "entrypoint": "dist/server.js",
+      "installCommand": "pnpm install --frozen-lockfile",
+      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=ws-backend..."
+    }
+  },
+
+  "rewrites": [
+    {
+      "source": "/ws",
+      "destination": {
+        "service": "ws-backend"
+      }
+    },
+    {
+      "source": "/ws/(.*)",
+      "destination": {
+        "service": "ws-backend"
+      }
+    },
+
+    {
+      "source": "/auth",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+    {
+      "source": "/auth/(.*)",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+
+    {
+      "source": "/room",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+    {
+      "source": "/room/(.*)",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+
+    {
+      "source": "/canvas",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+    {
+      "source": "/canvas/(.*)",
+      "destination": {
+        "service": "http-backend"
+      }
+    },
+
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "excelidraw-frontend"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "ws-backend",
   "version": "1.0.0",
-  "main": "/dist/server.js",
+  "main": "./dist/server.js",
   "scripts": {
     "build": "tsc -b",
     "start": "node ./dist/server.js",
@@ -10,12 +10,12 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "dotenv": "^16.5.0",
-    "ws": "^8.18.2"
-  },
-  "devDependencies": {
+    "ws": "^8.18.2",
     "@repo/backend-common": "workspace:*",
     "@repo/common": "workspace:*",
-    "@repo/db": "workspace:*",
+    "@repo/db": "workspace:*"
+  },
+  "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/ws": "^8.18.1"
   },

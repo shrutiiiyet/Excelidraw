@@ -1,17 +1,11 @@
-import express, { type Request, type Response } from "express";
-import cors from "cors";
+import express, { type Request, type Response, type Express } from "express";
 
 // import routers
 import authRouter from "./routes/authRoutes";
 import roomRouter from "./routes/roomRoutes";
 import canvasRouter from "./routes/canvasRoutes";
 
-const app = express();
-
-app.use(
-  cors(),
-);
-
+const app: Express  = express();
 app.use(express.json());
 
 // Routes
@@ -26,6 +20,4 @@ app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/canvas", canvasRouter);
 
-app.listen(3001, () => {
-  console.log('[ server ] is listening on : http://localhost:3001');
-});
+export default app;

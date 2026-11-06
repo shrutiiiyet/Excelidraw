@@ -6,15 +6,12 @@ import { WS_PORT } from "./config";
 const server = createServer();
 
 const wss = new WebSocketServer({
-  server,
+  port: WS_PORT,
+  host: "0.0.0.0",
 });
 
 setupWebSocketServer(wss);
 
-if (process.env.NODE_ENV !== "test") {
-  server.listen(WS_PORT, () => {
-    console.log(`WS server listening on port ${WS_PORT}`);
-  });
-}
+console.log(`WS server listening on port ${WS_PORT}`);
 
 export default server;

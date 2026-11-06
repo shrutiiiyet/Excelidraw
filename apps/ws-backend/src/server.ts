@@ -1,7 +1,13 @@
 import { WebSocketServer } from "ws";
-import { WS_PORT } from "./config";
 import { setupWebSocketServer } from "./handlers/wsHandler";
+import { createServer } from "node:http";
 
-const wss = new WebSocketServer({ port: WS_PORT });
+const server = createServer();
+
+const wss = new WebSocketServer({
+  server,
+});
 
 setupWebSocketServer(wss);
+
+export default server;

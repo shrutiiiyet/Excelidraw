@@ -1,7 +1,9 @@
 import type { Request } from "express";
 
-export interface AuthRequest extends Request {
+export type AuthRequest = Request<{
+  roomId: string;
+}> & {
   auth?: {
     id: string;
   };
-}
+};

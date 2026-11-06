@@ -8,7 +8,6 @@ import {
 } from "./roomHandler";
 import { handleCanvasEvent } from "./canvasHandler";
 import { logger } from "../utils/logger";
-import { WS_PORT } from "../config";
 
 export const setupWebSocketServer = (wss: WebSocketServer) => {
   wss.on("connection", (socket, request) => {
@@ -62,9 +61,5 @@ export const setupWebSocketServer = (wss: WebSocketServer) => {
       logger.info(`User ${userId} disconnected`);
       handleUserDisconnect(socket, userId); // uses userId to fully clean up rooms
     });
-  });
-
-  wss.on("listening", () => {
-    logger.info(`WebSocket server is running on ws://localhost:${WS_PORT}`);
   });
 };

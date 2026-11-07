@@ -21,10 +21,8 @@ app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/canvas", canvasRouter);
 
-if (process.env.NODE_ENV !== "test") {
-  app.listen(HTTP_PORT, () => {
-    console.log(`HTTP server listening on port ${HTTP_PORT}`);
-  });
-}
+app.listen(HTTP_PORT, "0.0.0.0", () => {
+  console.log(`[HTTP] Server running on port ${HTTP_PORT}`);
+});
 
 export default app;

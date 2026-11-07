@@ -1,0 +1,31 @@
+# Ignore everything by default
+*
+
+# Keep root workspace metadata
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!turbo.json
+!.npmrc
+
+# Keep workspace source files needed for the monorepo build
+!apps/
+!apps/**
+!packages/
+!packages/**
+
+# Keep local env files only if needed for builds
+!.env.docker
+
+# Exclude local-only/generated data
+node_modules
+**/node_modules
+.git
+.gitignore
+.env
+.env.*
+**/.next
+**/dist
+**/*.tsbuildinfo
+**/.turbo
+*.log

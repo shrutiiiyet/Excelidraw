@@ -1,4 +1,5 @@
 import express, { type Request, type Response, type Express } from "express";
+import cors from "cors";
 
 // import routers
 import authRouter from "./routes/authRoutes";
@@ -6,8 +7,25 @@ import roomRouter from "./routes/roomRoutes";
 import canvasRouter from "./routes/canvasRoutes";
 import { HTTP_PORT } from "./config/env";
 
+const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000"];
+
 const app: Express  = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 // Routes
 app.get("/", (_req: Request, res: Response) => {

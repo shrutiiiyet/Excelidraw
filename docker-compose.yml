@@ -1,0 +1,56 @@
+services:
+  http-backend:
+    build:
+      context: .
+      dockerfile: apps/http-backend/Dockerfile
+      target: production
+    container_name: excelidraw-http
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      JWT_SECRET: dev-secret
+      JWT_EXPIRES_IN: 7d
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - "3001:3001"
+
+  ws-backend:
+    build:
+      context: .
+      dockerfile: apps/ws-backend/Dockerfile
+      target: production
+    container_name: excelidraw-ws
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: production
+      WS_PORT: 8080
+      JWT_SECRET: dev-secret
+    ports:
+      - "8080:8080"
+
+  excelidraw-frontend:
+    build:
+      context: .
+      dockerfile: apps/excelidraw-frontend/Dockerfile
+      target: production
+    container_name: excelidraw-frontend
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_WS_URL: ws://localhost:8080
+    depends_on:
+      - http-backend
+      - ws-backend
+    ports:
+      - "3000:3000"

@@ -7,7 +7,7 @@
       "root": "apps/excelidraw-frontend",
       "framework": "nextjs",
       "installCommand": "corepack pnpm@9.0.0 install --frozen-lockfile --prod=false",
-      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=excelidraw-frontend..."
+      "buildCommand": "cd ../.. && pnpm run build"
     },
 
     "http-backend": {
@@ -15,13 +15,13 @@
       "framework": "express",
       "entrypoint": "src/server.ts",
       "installCommand": "corepack pnpm@9.0.0 install --frozen-lockfile --prod=false",
-      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=http-backend..."
+      "buildCommand": "cd ../.. && pnpm run build"
     },
     "ws-backend": {
       "root": "apps/ws-backend",
       "entrypoint": "src/server.ts",
       "installCommand": "corepack pnpm@9.0.0 install --frozen-lockfile --prod=false",
-      "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=ws-backend..."
+      "buildCommand": "cd ../.. && pnpm run build"
     }
   },
 

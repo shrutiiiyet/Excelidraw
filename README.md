@@ -1,97 +1,135 @@
-# 🖌️ Excelidraw – Real-Time Collaborative Canvas
+# Excelidraw
 
-Excelidraw is a real-time collaborative canvas application inspired by Excalidraw. Users can join shared rooms and draw shapes or text together in real time.
+Real-time collaborative whiteboard app built as a TypeScript monorepo with a Next.js frontend, an Express HTTP API, and a WebSocket collaboration backend.
 
----
+## Overview
 
-## 🔧 Features & Tech Stack
+This project is a collaborative drawing app inspired by Excalidraw. It allows multiple users to join a shared room and interact with a canvas in real time.
 
-- 🧠 Built with a **Turborepo monorepo** architecture using **TypeScript** throughout
-- 🔌 Real-time collaboration powered by **WebSockets**
-- 🗂️ Room-based multi-user drawing experience using **slug-based routing**
-- 🧱 **Backend:** Node.js, Express.js, WebSockets, PostgreSQL, Prisma ORM
-- 🎨 **Frontend:** Next.js, React, Zustand, Tailwind CSS
-- 🛠️ **Database & Schema:** PostgreSQL with Prisma migrations
-- 🚀 **Deployment:** Planned via Docker & CI/CD pipeline
+The repository is organized as a Turborepo workspace with separate apps for the frontend and backend services, plus shared packages for common logic and Prisma database access.
 
----
+## Tech Stack
 
-## 🛠️ Project Status
+- Frontend: Next.js, React, TypeScript, Zustand
+- HTTP backend: Node.js, Express, TypeScript
+- WS backend: Node.js, ws, TypeScript
+- Database: PostgreSQL + Prisma ORM
+- Monorepo: pnpm workspaces + Turborepo
+- Containerization: Docker + Docker Compose
 
-- ✅ **Backend completed** with persistent collaboration and room syncing
-- 🔧 **Frontend completed**
-- 🌐 **Live deployment coming soon**
+## Repository Structure
 
----
+```text
+Excelidraw/
+├── apps/
+│   ├── excelidraw-frontend/   # Next.js client app
+│   ├── http-backend/          # Express API service
+│   └── ws-backend/             # WebSocket collaboration service
+├── packages/
+│   ├── backend-common/        # Shared auth/config helpers
+│   ├── common/                # Shared schemas/types
+│   ├── db/                    # Prisma schema + generated client
+│   ├── eslint-config/         # Shared lint config
+│   ├── typescript-config/     # Shared TS config
+│   └── ...
+├── docker-compose.yml         # Local multi-service compose stack
+├── package.json               # Root scripts and workspace config
+├── pnpm-workspace.yaml        # pnpm workspace definition
+├── turbo.json                 # Turbo build orchestration
+├── .env.docker                # Docker environment values
+├── .dockerignore              # Docker build exclusions
+├── README.md
+└── pnpm-lock.yaml
+```
 
-## 📂 Project Structure
+## Services
 
-- excelidraw/
-- │
-- ├── apps/
-- │ ├── excelidraw-backend # Fully working backend API
-- │ └── excelidraw-frontend # Frontend (in progress, currently ignored)
-- │
-- ├── packages/
-- │ ├── backend-common # Common files used amongst backaneds
-- │ ├── common # Common Schema
-- └─── db #Prisma schema and migrations
+### Frontend
+- App: `apps/excelidraw-frontend`
+- Port: `3000`
+- Purpose: Drawing UI, room access, canvas interactions
 
-## 📌 To Do
+### HTTP Backend
+- App: `apps/http-backend`
+- Port: `3001`
+- Purpose: REST API, auth, room/session endpoints
 
-- [x] Real-time collaboration backend
-- [x] Canvas rendering & drawing tools
-- [x] Frontend layout and routing
-- [ ] Full containerization and orchestration
-- [ ] Deployment with CI/CD (coming soon)
+### WebSocket Backend
+- App: `apps/ws-backend`
+- Port: `8080`
+- Purpose: Real-time collaboration events and sync
 
----
+## Prerequisites
 
-## 🤝 Contributing
+- Node.js 18+
+- pnpm 9+
+- Docker + Docker Compose (optional for containerized startup)
 
-With the frontend now complete, contributions are officially open!
+## Local Setup
 
-We welcome developers to help refine existing features, improve performance, and expand functionality. Whether you’re fixing a bug, optimizing rendering, or enhancing collaboration tools — your contribution matters.
+Use Setup script:
 
-### 🧭 How to Contribute
+```bash
+pnpm run setup
+```
 
-1. Fork the repository
-2. Clone the repository
+Start the app locally with the workspace script:
 
-`git clone https://github.com/shrutiiiyet/Excelidraw`
+```bash
+pnpm dev
+```
 
-4. Create a branch for your feature or fix
+Or run each service individually:
 
-`git checkout -b feature/your-feature-name`
+```bash
+pnpm start:http
+pnpm start:ws
+pnpm start:web
+```
 
-4. Commit your changes with clear messages
+## Docker Setup
 
-5. Push to your forked repository
+The project includes a compose stack for all three services.
 
-6. Submit a Pull Request describing your improvements
+1. Ensure your environment file exists and contains the required values, including the database URL and app URLs.
+2. Start the stack:
 
-## 💡 You Can Contribute By:
+```bash
+docker compose up --build
+```
 
-- Enhancing performance or state management with Zustand
+This starts:
+- `excelidraw-frontend` on `http://localhost:3000`
+- `http-backend` on `http://localhost:3001`
+- `ws-backend` on `ws://localhost:8080`
 
-- Refining the collaborative drawing logic
 
-- Improving UI/UX for the canvas tools
+## Root Scripts
 
-- Writing tests or improving documentation
+```bash
+pnpm run build
+pnpm run dev
+pnpm run lint
+pnpm run check-types
+pnpm run generate
+pnpm run start
+```
 
-- Setting up deployment and CI/CD pipelines
+## Notes
 
----
+- The project uses a monorepo setup, so shared code is compiled via workspace packages.
+- Prisma schema and migrations live under `packages/db` and should be managed there.
+- The Docker setup is intentionally organized as a normal monorepo workflow rather than copying stale build artifacts.
 
-## 📣 Stay Tuned
+## Contributing
 
-The complete Excelidraw app will be available online soon.  
-Feel free to star 🌟 the repo and follow updates!
+Contributions are welcome. If you want to help, you can:
 
----
+- improve collaboration behavior
+- refine drawing tools and UI
+- add tests and validation
+- improve deployment and documentation
 
-# 📜 License
+## License
 
-This project is licensed under the MIT License.
-Feel free to use, modify, and share responsibly.
+This project is currently under active development and is intended for collaborative learning and feature development.

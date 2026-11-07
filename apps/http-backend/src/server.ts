@@ -7,7 +7,7 @@ import roomRouter from "./routes/roomRoutes";
 import canvasRouter from "./routes/canvasRoutes";
 import { HTTP_PORT } from "./config/env";
 
-const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000"];
+const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:3000", "https://drawwithexcelidraw.vercel.app"];
 
 const app: Express  = express();
 app.use(express.json());

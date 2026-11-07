@@ -15,7 +15,6 @@
     "start": "concurrently -n http,ws,web -c blue,green,magenta \"pnpm run start:http\" \"pnpm run start:ws\" \"pnpm run start:web\""
   },
   "devDependencies": {
-    "concurrently": "^9.2.0",
     "prettier": "^3.5.3",
     "turbo": "^2.5.3",
     "typescript": "5.8.2"
@@ -26,6 +25,7 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "concurrently": "^9.2.0",
   }
 }

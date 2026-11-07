@@ -133,3 +133,8 @@ Contributions are welcome. If you want to help, you can:
 ## License
 
 This project is currently under active development and is intended for collaborative learning and feature development.
+
+Here are some fresh looks
+<img width="953" height="492" alt="Screenshot 2026-11-07 185955" src="https://github.com/user-attachments/assets/6ca7ba6f-671a-4229-9671-2a2c1e8aef91" />
+<img width="946" height="499" alt="Screenshot 2026-11-07 185931" src="https://github.com/user-attachments/assets/b64c0d1a-47d7-4503-9816-fd8bc03d4c31" />
+

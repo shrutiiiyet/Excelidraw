@@ -21,9 +21,7 @@ app.get("/", (_req, res) => {
 app.use("/auth", authRoutes_1.default);
 app.use("/room", roomRoutes_1.default);
 app.use("/canvas", canvasRoutes_1.default);
-if (process.env.NODE_ENV !== "test") {
-    app.listen(env_1.HTTP_PORT, () => {
-        console.log(`HTTP server listening on port ${env_1.HTTP_PORT}`);
-    });
-}
+app.listen(env_1.HTTP_PORT, "0.0.0.0", () => {
+    console.log(`[HTTP] Server running on port ${env_1.HTTP_PORT}`);
+});
 exports.default = app;

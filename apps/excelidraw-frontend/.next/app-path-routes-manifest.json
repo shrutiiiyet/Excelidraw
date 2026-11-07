@@ -1,8 +1,8 @@
 {
   "/robots.txt/route": "/robots.txt",
   "/sitemap.xml/route": "/sitemap.xml",
-  "/canvas/[roomId]/page": "/canvas/[roomId]",
   "/_not-found/page": "/_not-found",
+  "/canvas/[roomId]/page": "/canvas/[roomId]",
   "/page": "/",
   "/(auth)/signin/page": "/signin",
   "/(auth)/signup/page": "/signup",

@@ -1,0 +1,10 @@
+{
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/canvas/[roomId]/page": "/canvas/[roomId]",
+  "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/(auth)/signin/page": "/signin",
+  "/(auth)/signup/page": "/signup",
+  "/dashboard/page": "/dashboard"
+}

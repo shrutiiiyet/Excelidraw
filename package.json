@@ -8,7 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "generate": "cd packages/db && pnpm prisma generate",
-    "setup": "pnpm install --prod=false && cd apps/excelidraw-frontend && pnpm i --prod=false && cd ../http-backend && pnpm i --prod=false && cd ../ws-backend && pnpm i --prod=false && cd ../../packages/backend-common && pnpm i --prod=false && cd ../common && pnpm i --prod=false && cd ../db && pnpm i --prod=false && pnpm prisma generate",
+    "setup": "pnpm install && cd apps/excelidraw-frontend && pnpm i && cd ../http-backend && pnpm i  && cd ../ws-backend && pnpm i && cd ../../packages/backend-common && pnpm i && cd ../common && pnpm i && cd ../db && pnpm i && pnpm prisma generate",
     "start:http": "cd apps/http-backend && pnpm run start",
     "start:ws": "cd apps/ws-backend && pnpm run start",
     "start:web": "cd apps/excelidraw-frontend && pnpm run start",

@@ -21,12 +21,6 @@ coverage
 # Vercel
 .vercel
 
-# Build Outputs
-.next/
-out/
-build
-dist
-
 
 # Debug
 npm-debug.log*
